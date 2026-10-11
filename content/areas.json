@@ -1,0 +1,130 @@
+[
+  {
+    "id": "A1", "nombre": "Clientes y marketing", "corto": "Clientes",
+    "que": "Cómo llegan los clientes nuevos y si vuelven.",
+    "niveles": [
+      "Sin acciones; los clientes llegan por el boca a boca.",
+      "Web o redes sueltas, sin plan ni medición.",
+      "Acciones planificadas a mano; no se sabe de dónde viene cada cliente.",
+      "Se conoce el origen de cada cliente y lo que cuesta captarlo; clientes segmentados.",
+      "Captación y fidelización automatizadas y medidas; las decisiones se toman con datos."
+    ],
+    "indicadores": [
+      {"id": "A1-i1", "nombre": "Clientes nuevos al mes", "unidad": "clientes/mes"},
+      {"id": "A1-i2", "nombre": "Clientes que repiten", "unidad": "%"}
+    ],
+    "chequeo": "¿Sabéis de dónde viene cada cliente nuevo y cuántos repiten?"
+  },
+  {
+    "id": "A2", "nombre": "Ventas y atención", "corto": "Ventas",
+    "que": "Cómo se atienden las consultas, los pedidos y los presupuestos.",
+    "niveles": [
+      "Depende de quién atienda; no queda registro.",
+      "Teléfono y WhatsApp en móviles; presupuestos en Excel o Word.",
+      "Hay herramienta (agenda, CRM, programa), pero respuestas y seguimiento se hacen a mano.",
+      "Canales centralizados, respuestas tipo, seguimiento de presupuestos y consultas registradas.",
+      "Atención continua con respuestas automáticas supervisadas; conversión medida."
+    ],
+    "indicadores": [
+      {"id": "A2-i1", "nombre": "Consultas sin atender a la semana", "unidad": "consultas/semana"},
+      {"id": "A2-i2", "nombre": "Presupuestos aceptados", "unidad": "%"}
+    ],
+    "chequeo": "¿Cuántas consultas se os quedan sin contestar a la semana?"
+  },
+  {
+    "id": "A3", "nombre": "Operaciones, compras y stock", "corto": "Operaciones",
+    "que": "Cómo se compra, se almacena y se prepara lo que se vende o se fabrica.",
+    "niveles": [
+      "Se compra a ojo y de memoria.",
+      "Excel sueltos; el inventario no es fiable.",
+      "Programa de gestión con stock, pero los pedidos se deciden por intuición.",
+      "Stock fiable, mínimos y alertas; las compras se apoyan en el histórico.",
+      "Previsión de demanda y pedidos sugeridos automáticamente; roturas medidas."
+    ],
+    "indicadores": [
+      {"id": "A3-i1", "nombre": "Roturas de stock al año", "unidad": "veces/año"},
+      {"id": "A3-i2", "nombre": "Valor del stock parado", "unidad": "€"}
+    ],
+    "chequeo": "¿Cómo decidís cuánto comprar y cada cuánto os quedáis sin algo?"
+  },
+  {
+    "id": "A4", "nombre": "Cobro y finanzas", "corto": "Finanzas",
+    "que": "Facturas, cobros, impagos y números del negocio.",
+    "niveles": [
+      "Papel; la gestoría lo hace todo y la empresa no ve los números.",
+      "Facturas en Word o Excel; los cobros pendientes no se siguen.",
+      "Programa de facturación; conciliación y reclamaciones a mano.",
+      "Facturación y cobro conectados; impagados en una lista; previsión de tesorería básica.",
+      "Cobros automáticos, avisos de impago solos y cuadro de mando financiero mensual."
+    ],
+    "indicadores": [
+      {"id": "A4-i1", "nombre": "Días medios de cobro", "unidad": "días"},
+      {"id": "A4-i2", "nombre": "Horas al mes de administración", "unidad": "h/mes"}
+    ],
+    "chequeo": "¿Sabéis hoy cuánto os deben y desde cuándo?"
+  },
+  {
+    "id": "A5", "nombre": "Personas y conocimiento", "corto": "Personas",
+    "que": "Quién sabe qué, si está escrito y cómo se forma al equipo.",
+    "niveles": [
+      "El conocimiento está en la cabeza de una o dos personas; no hay formación.",
+      "Alguna instrucción suelta; formación ocasional.",
+      "Procedimientos escritos de lo principal; formación planificada, sin medir.",
+      "Base de conocimiento accesible y al día; plan de formación con seguimiento.",
+      "Conocimiento vivo (documentación y asistentes), formación medida por resultados; nadie es imprescindible."
+    ],
+    "indicadores": [
+      {"id": "A5-i1", "nombre": "Tareas críticas que solo sabe una persona", "unidad": "tareas"},
+      {"id": "A5-i2", "nombre": "Horas de formación por persona y año", "unidad": "h/persona/año"}
+    ],
+    "chequeo": "Si mañana falta la persona que más sabe, ¿qué se para?"
+  },
+  {
+    "id": "A6", "nombre": "Datos y medición", "corto": "Datos",
+    "que": "Dónde están los datos, si son fiables y qué números se miran.",
+    "niveles": [
+      "No se mira ningún número; los datos están en papel o en la cabeza.",
+      "Datos repartidos en varios sitios; se sacan a mano cuando hay un problema.",
+      "Un programa central e informes manuales periódicos; la calidad de los datos no se conoce.",
+      "Datos fiables en un sitio, revisados, y un cuadro de mando mensual.",
+      "Datos integrados, cuadro de mando en vivo con alertas y uso predictivo."
+    ],
+    "indicadores": [
+      {"id": "A6-i1", "nombre": "Indicadores que se revisan cada mes", "unidad": "indicadores"},
+      {"id": "A6-i2", "nombre": "Errores por cada 100 registros", "unidad": "errores/100"}
+    ],
+    "chequeo": "¿Qué números miráis cada mes para saber si el negocio va bien?"
+  },
+  {
+    "id": "A7", "nombre": "Seguridad y protección de datos", "corto": "Seguridad",
+    "que": "Copias de seguridad, accesos y datos personales de clientes.",
+    "niveles": [
+      "Sin copias; accesos compartidos; datos de clientes en móviles personales.",
+      "Copias cuando alguien se acuerda.",
+      "Copia automática de lo principal; contraseñas compartidas.",
+      "Copias verificadas, acceso por persona y protección de datos en orden.",
+      "Lo anterior, más restauración probada, responsable identificado y formación."
+    ],
+    "indicadores": [
+      {"id": "A7-i1", "nombre": "Días desde la última copia comprobada", "unidad": "días"},
+      {"id": "A7-i2", "nombre": "Personas con acceso a datos de clientes", "unidad": "personas"}
+    ],
+    "chequeo": "Si mañana se rompe el ordenador principal, ¿qué perdéis?"
+  },
+  {
+    "id": "A8", "nombre": "Uso actual de IA", "corto": "IA",
+    "que": "Si ya se usa inteligencia artificial y con qué normas.",
+    "niveles": [
+      "Nada.",
+      "Uso individual y esporádico, sin normas, o se probó algo y se abandonó.",
+      "Alguna IA o automatización estable en una tarea concreta, sin control de calidad.",
+      "Varias en uso, con normas claras y datos protegidos.",
+      "Integrada en los procesos, con calidad medida y supervisión humana."
+    ],
+    "indicadores": [
+      {"id": "A8-i1", "nombre": "Tareas en que se usa IA", "unidad": "tareas"},
+      {"id": "A8-i2", "nombre": "Hay normas de uso de IA (1 = sí, 0 = no)", "unidad": "sí/no"}
+    ],
+    "chequeo": "¿Alguien usa ya alguna IA en el trabajo? ¿Para qué?"
+  }
+]

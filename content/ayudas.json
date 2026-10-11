@@ -1,0 +1,44 @@
+{
+  "inicio": {
+    "que": "Cada caso es una empresa y una visita.",
+    "porque": "Todo lo que apuntes se guarda solo en este dispositivo. Nada sale de aquí salvo que tú lo exportes.",
+    "como": "Crea un caso nuevo o abre el ejemplo de Hidrotex para ver cómo queda un diagnóstico completo.",
+    "ejemplo": "Abre «Hidrotex (ejemplo)» y recorre los seis pasos de arriba."
+  },
+  "motivo": {
+    "que": "Entender qué le pasa a la empresa y qué quiere conseguir, con sus palabras.",
+    "porque": "Como en el médico: primero «¿qué le pasa?». El motivo decide qué áreas se exploran, así no hace falta preguntarlo todo.",
+    "como": "1) Rellena o importa las respuestas del empresario (M1-M9). 2) Elige uno o varios motivos del catálogo. 3) Haz los 5 porqués para pasar del síntoma a la causa. 4) Si quieres, activa el chequeo general de las 8 áreas.",
+    "ejemplo": "Hidrotex: «Decidme qué datos tengo y si están en condiciones» → motivos «No sé si mis datos sirven» y «Pierdo dinero en compras o stock»."
+  },
+  "exploracion": {
+    "que": "Situar cada área en su nivel actual, del 1 al 5. Es el punto A.",
+    "porque": "Sin saber dónde está la empresa no se puede saber cuánto le falta. Las descripciones de cada nivel evitan puntuar a ojo.",
+    "como": "Lee los cinco niveles y elige el que mejor describe cómo trabaja hoy. Escribe la evidencia (lo que te han dicho o has visto): sin evidencia no se guarda el nivel. Puntúa el proceso, no la herramienta: si un programa lo mueve una persona a mano, es nivel 3 como máximo.",
+    "ejemplo": "Hidrotex, Operaciones: nivel 2. Evidencia: «Pide en abril a ojo; el stock de la nave 2 va en un Excel aparte»."
+  },
+  "analitica": {
+    "que": "Escribir cada problema como una tarjeta y calcular cuánto cuesta al año.",
+    "porque": "Lo que no se cuantifica no se puede priorizar. Y no siempre lo que más molesta es lo que más cuesta.",
+    "como": "Para cada problema: título con palabras de la empresa, área, cuánto le molesta (1-5) y una o varias fórmulas. Marca el origen de cada número: [E] lo dice la empresa, [C] lo compruebas tú, [S] es un supuesto. La herramienta hace la cuenta y la enseña.",
+    "ejemplo": "Hidrotex: «Roturas de stock de splits», 30.000 € de ventas perdidas [E]; el coste real es el margen, que aún no sabemos."
+  },
+  "diagnostico": {
+    "que": "Comparar dónde está la empresa (A) con dónde quiere llegar (B) y ver qué separa una cosa de otra.",
+    "porque": "No hay buen viento para quien no sabe a dónde va. El punto B lo acordáis la empresa y tú; la herramienta no lo inventa.",
+    "como": "1) Escribe el objetivo general. 2) Para cada área explorada, fija el nivel objetivo y su importancia. 3) Revisa el gráfico, las fortalezas y debilidades, la matriz de dolor y euros y los cruces.",
+    "ejemplo": "Hidrotex: Operaciones de 2 a 4, importancia alta. La única pérdida en euros está en las compras, aunque el mostrador sea lo más visible."
+  },
+  "tratamiento": {
+    "que": "Decidir qué se hace primero, cómo se hace y preparar el arnés para el agente.",
+    "porque": "La herramienta propone un orden con una regla visible: primero estabilizar, después las bases y luego lo que más devuelve. La última palabra es tuya.",
+    "como": "Revisa el orden propuesto y su explicación. Si mueves algo, escribe el motivo. Para cada problema que se aborde, elige el destino y el patrón, y descarga el kit.",
+    "ejemplo": "Hidrotex: 1) normas mínimas para el móvil de la tienda, 2) revisor de datos, 3) previsor de compras."
+  },
+  "informe": {
+    "que": "El diagnóstico en una página para enseñarlo en el momento y el informe completo para después.",
+    "porque": "La empresa tiene que entender en un minuto dónde está, a dónde va y qué haría primero.",
+    "como": "Revisa la vista previa y usa «Imprimir / Guardar como PDF». Exporta el caso para guardarlo o pasarlo a otro dispositivo.",
+    "ejemplo": "La página única de Hidrotex: gráfico, tres problemas con su coste y el orden propuesto."
+  }
+}

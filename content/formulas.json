@@ -1,0 +1,54 @@
+[
+  {
+    "id": "F1", "nombre": "Horas a mano",
+    "explica": "Tiempo que se va en una tarea repetitiva. Si se conoce lo que cuesta una hora, se pasa a euros.",
+    "campos": [
+      {"id": "vecesDia", "nombre": "Veces al día", "ayuda": "Opcional: cuántas veces al día se hace (por ejemplo, 30 consultas)."},
+      {"id": "minutos", "nombre": "Minutos cada vez", "ayuda": "Opcional: va con «veces al día»."},
+      {"id": "horasDia", "nombre": "Horas al día", "ayuda": "Si no usas veces × minutos."},
+      {"id": "diasSemana", "nombre": "Días a la semana", "ayuda": "Va con las horas al día."},
+      {"id": "horasSemana", "nombre": "Horas a la semana", "ayuda": "Si ya lo sabes directamente, no hace falta lo de arriba."},
+      {"id": "eurosHora", "nombre": "€ por hora", "ayuda": "Lo que cuesta una hora a la empresa. Si no se declara, el resultado se da solo en horas."}
+    ]
+  },
+  {
+    "id": "F2", "nombre": "Ventas o clientes perdidos",
+    "explica": "Ventas que se pierden en un año. El coste real es el margen sobre esas ventas.",
+    "campos": [
+      {"id": "importe", "nombre": "Ventas perdidas al año (€)", "ayuda": "Si te dan un rango, escribe el rango: se usará el valor bajo."},
+      {"id": "margen", "nombre": "Margen bruto (%)", "ayuda": "Si no se declara, se muestra el importe de ventas y se avisa de que el coste real es menor."}
+    ]
+  },
+  {
+    "id": "F3", "nombre": "Stock parado",
+    "explica": "Dinero inmovilizado en el almacén y lo que cuesta tenerlo al año.",
+    "campos": [
+      {"id": "valorStock", "nombre": "Valor del stock parado (€)", "ayuda": "Unidades × coste de cada una."},
+      {"id": "costePct", "nombre": "Coste anual de tenerlo (%)", "ayuda": "Financiero, almacén y obsolescencia. Sin él, solo se muestra el valor inmovilizado."}
+    ]
+  },
+  {
+    "id": "F4", "nombre": "Consumos y gastos evitables",
+    "explica": "Un gasto anual que se podría reducir. El porcentaje de reducción casi siempre es un supuesto [S].",
+    "campos": [
+      {"id": "gasto", "nombre": "Gasto anual (€)", "ayuda": "Por ejemplo, la factura anual de climatización."},
+      {"id": "reduccion", "nombre": "Reducción esperada (%)", "ayuda": "Casi siempre es un supuesto: márcalo con [S]."}
+    ]
+  },
+  {
+    "id": "F5", "nombre": "Ventajas perdidas",
+    "explica": "Descuentos o bonificaciones que se pierden.",
+    "campos": [
+      {"id": "importeCompra", "nombre": "Importe de la compra al año (€)", "ayuda": "Sin él no se puede calcular."},
+      {"id": "descuento", "nombre": "Descuento perdido (%)", "ayuda": "Por ejemplo, 5 % por pedir antes de una fecha."}
+    ]
+  },
+  {
+    "id": "F6", "nombre": "Riesgo",
+    "explica": "Probabilidad por impacto. Siempre es una hipótesis y se muestra aparte de los costes.",
+    "campos": [
+      {"id": "probabilidad", "nombre": "Probabilidad al año (%)", "ayuda": "Supuesto [S]."},
+      {"id": "impacto", "nombre": "Impacto si ocurre (€)", "ayuda": "Lo que costaría si pasa."}
+    ]
+  }
+]

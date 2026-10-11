@@ -1,0 +1,82 @@
+[
+  {
+    "id": "MC1", "titulo": "Quiero más clientes",
+    "areas": ["A1", "A2"],
+    "preguntas": [
+      {"id": "MC1-1", "texto": "¿Por dónde os llegan los clientes nuevos? (recomendación, Google, redes, pasan por la puerta…)"},
+      {"id": "MC1-2", "texto": "¿Cuántos clientes nuevos tenéis al mes, más o menos?"},
+      {"id": "MC1-3", "texto": "¿Cuántas llamadas o mensajes se quedan sin contestar a la semana?"},
+      {"id": "MC1-4", "texto": "¿Cuántos de vuestros clientes vuelven a comprar?"}
+    ],
+    "exploracion": "Recorre con la empresa el camino del cliente: cómo os conoce, cómo contacta, quién le atiende, qué pasa después de la venta. Busca si se pierden contactos que ya llegan.",
+    "formulas": ["F2"],
+    "patrones": ["P6", "P5", "P3"],
+    "trampa": "Buscar clientes nuevos mientras se pierden los que ya pagaron."
+  },
+  {
+    "id": "MC2", "titulo": "Pierdo dinero en compras o stock",
+    "areas": ["A3", "A6"],
+    "preguntas": [
+      {"id": "MC2-1", "texto": "¿Cómo decides cuánto comprar de cada cosa?"},
+      {"id": "MC2-2", "texto": "¿Cuándo te quedaste sin un producto por última vez? ¿Qué pasó y cuánto perdiste, más o menos?"},
+      {"id": "MC2-3", "texto": "¿Qué se te queda parado en el almacén y cuánto vale, más o menos?"},
+      {"id": "MC2-4", "texto": "¿Hay fechas o descuentos de compra que te importen?"}
+    ],
+    "exploracion": "Mira de dónde salen los datos de ventas y de stock y en qué estado están. Pregunta quién decide las compras y con qué información.",
+    "formulas": ["F2", "F3", "F5"],
+    "patrones": ["P1", "P2"],
+    "trampa": "Pedir una previsión sin comprobar antes que los datos sirven."
+  },
+  {
+    "id": "MC3", "titulo": "Se nos va el tiempo en tareas a mano",
+    "areas": [],
+    "preguntas": [
+      {"id": "MC3-1", "texto": "¿Qué tarea os quita más tiempo? ¿Quién la hace?"},
+      {"id": "MC3-2", "texto": "¿Cuántas horas a la semana, más o menos?"},
+      {"id": "MC3-3", "texto": "¿Qué papeles, documentos o programas usa para hacerla?"}
+    ],
+    "exploracion": "Dibuja el proceso: de dónde vienen las cosas, qué se hace con ellas, qué sale y para quién (SIPOC). Marca los pasos que se hacen a mano. Elige tú el área del proceso.",
+    "formulas": ["F1"],
+    "patrones": ["P5", "P4"],
+    "trampa": "Automatizar un proceso que está mal diseñado; a veces basta con cambiar el proceso."
+  },
+  {
+    "id": "MC4", "titulo": "Dependo de una persona",
+    "areas": ["A5", "A2"],
+    "preguntas": [
+      {"id": "MC4-1", "texto": "¿Qué pasaría si esa persona faltara un mes?"},
+      {"id": "MC4-2", "texto": "¿Qué sabe ella que no está escrito en ningún sitio?"},
+      {"id": "MC4-3", "texto": "¿Hay fecha de salida (jubilación, cambio de trabajo)?"}
+    ],
+    "exploracion": "Busca dónde está el conocimiento: documentos, fichas, la cabeza de alguien. Comprueba si lo escrito está al día.",
+    "formulas": ["F1", "F6"],
+    "patrones": ["P3"],
+    "trampa": "Creer que una IA sustituye a la persona sin antes ordenar la documentación."
+  },
+  {
+    "id": "MC5", "titulo": "No sé si mis datos sirven",
+    "areas": ["A6", "A7"],
+    "preguntas": [
+      {"id": "MC5-1", "texto": "¿Dónde están vuestros datos (programa, Excel, papel) y desde cuándo?"},
+      {"id": "MC5-2", "texto": "¿Qué números miráis cada mes?"},
+      {"id": "MC5-3", "texto": "¿Ha pasado algo raro con los datos? (cortes, cambios de programa, cosas retocadas a mano)"}
+    ],
+    "exploracion": "Haz el inventario de fuentes de datos con su semáforo: ¿existe?, ¿está completa?, ¿es fiable? Anota las pistas de errores y quién te las da.",
+    "formulas": [],
+    "patrones": ["P1"],
+    "trampa": "El dueño cree que sus datos están bien y los empleados cuentan otra cosa."
+  },
+  {
+    "id": "MC6", "titulo": "Quiero formar a mi equipo",
+    "areas": ["A5", "A8"],
+    "preguntas": [
+      {"id": "MC6-1", "texto": "¿En qué queréis formaros y para qué?"},
+      {"id": "MC6-2", "texto": "¿Qué tarea concreta queréis hacer mejor o más rápido?"},
+      {"id": "MC6-3", "texto": "¿Cuántas horas podéis dedicar a la formación?"}
+    ],
+    "exploracion": "Mira qué herramientas usan ya, incluida la IA que usan por su cuenta, y con qué normas.",
+    "formulas": ["F1"],
+    "patrones": [],
+    "trampa": "Formar en herramientas sin una tarea concreta en la que aplicarlas."
+  }
+]
