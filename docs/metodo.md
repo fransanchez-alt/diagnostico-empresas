@@ -1,7 +1,9 @@
-# Método de diagnóstico de empresas · v0.1
+# Método de diagnóstico de empresas · v0.2
 
 **Herramienta de diagnóstico A → B** (nombre provisional)
-Borrador para revisión · 11 de octubre de 2026 · Fran Sánchez
+Versión 0.2 · 11 de octubre de 2026 · Fran Sánchez
+
+Novedades de la v0.2: cuestionario para el equipo, semanas trabajadas reales (45), tiempo del equipo separado del dinero, esfuerzo y retorno de cada solución, ayuda para elegir el destino, hoja de ruta en tres horizontes, Excel de cálculos y leyenda en el informe.
 
 ---
 
@@ -28,13 +30,14 @@ Convenciones que se usan en todo el documento:
 1. **No reinventar la rueda.** Cada pieza del método se apoya en una metodología conocida y aceptada (apartado 9). La herramienta las usa por dentro; no las enseña como teoría.
 2. **Sin evidencia no hay nivel.** Cada nivel lleva la respuesta o la observación que lo justifica.
 3. **Toda cifra con la operación a la vista** y con su origen [E], [C] o [S]. Una hipótesis nunca se presenta con el formato de un dato y nunca va en el titular.
-4. **Prudencia en los números.** Se redondea hacia abajo y se usa la parte baja de los rangos declarados. Una cifra prudente que la empresa reconoce vale más que una espectacular.
+4. **Prudencia en los números.** Se redondea hacia abajo, se usa la parte baja de los rangos declarados y las horas se pasan a año con las semanas que de verdad se trabajan (45 por defecto), no con las 52. Una cifra prudente que la empresa reconoce vale más que una espectacular.
 5. **La herramienta recomienda; la persona decide.** El orden de prioridades es una propuesta; el consultor lo puede cambiar dejando escrito el motivo.
-6. **Lo que duele no siempre es lo que cuesta.** El dolor del empresario se escucha y se registra, pero el orden lo deciden los euros (apartado 6.5).
-7. **Datos de terceros, fuera.** Solo se trabaja con procesos, herramientas y cifras agregadas. Nunca listados de clientes, fichas, contraseñas ni accesos.
-8. **Honesto, no cruel.** Cada debilidad sale con su posible solución al lado, y siempre hay una sección de lo que **no** conviene tocar todavía.
-9. **No todo se resuelve programando.** Cada problema recibe uno de tres destinos: OpenCode construye, OpenCode asiste o no hace falta agente.
-10. **La herramienta guía y explica.** En cada paso dice, en lenguaje sencillo, qué se hace, por qué importa y cómo se hace, con un ejemplo. Quien la use por primera vez (un alumno, un empresario que se autoevalúa) debe poder seguirla sin formación previa; quien ya la conoce puede ocultar las ayudas.
+6. **El tiempo del equipo no es dinero.** Si se liberan horas de la plantilla, la empresa sigue pagando los mismos sueldos: gana tiempo para otras tareas. Esas horas pasadas a euros son coste de oportunidad y se muestran aparte del dinero (5.2).
+7. **Lo que duele no siempre es lo que cuesta.** El dolor del empresario se escucha y se registra, pero el orden lo deciden los euros (apartado 6.5).
+8. **Datos de terceros, fuera.** Solo se trabaja con procesos, herramientas y cifras agregadas. Nunca listados de clientes, fichas, contraseñas ni accesos.
+9. **Honesto, no cruel.** Cada debilidad sale con su posible solución al lado, y siempre hay una sección de lo que **no** conviene tocar todavía.
+10. **No todo se resuelve programando.** Cada problema recibe uno de tres destinos: OpenCode construye, OpenCode asiste o no hace falta agente.
+11. **La herramienta guía y explica.** En cada paso dice, en lenguaje sencillo, qué se hace, por qué importa y cómo se hace, con un ejemplo. Quien la use por primera vez (un alumno, un empresario que se autoevalúa) debe poder seguirla sin formación previa; quien ya la conoce puede ocultar las ayudas.
 
 ## 2. El recorrido: una consulta médica
 
@@ -74,10 +77,22 @@ Avisos que acompañan siempre al formulario: «"No lo sé" es mejor que un dato 
 ### 3.2 Lo que añade el consultor en la visita
 
 1. **Canvas de modelo de negocio en una línea por bloque** (socios, actividades, recursos, propuesta de valor, relación, canales, segmentos, costes, ingresos). Sirve para entender dónde gana y dónde pierde dinero la empresa, y para detectar si el motivo toca una actividad clave o un coste importante.
-2. **Elección del motivo de consulta** en el catálogo (3.3). Si no encaja ninguno, el consultor elige las áreas a mano.
+2. **Elección del motivo de consulta** en el catálogo (3.4). Si no encaja ninguno, el consultor elige las áreas a mano.
 3. **5 porqués** sobre el motivo, para pasar del síntoma a la causa. Ejemplo: «quiero más clientes» → ¿por qué? → «no me llaman» → ¿seguro? → «me llaman, pero no siempre contestamos» → la causa está en ventas y atención, no en marketing.
 
-### 3.3 Catálogo inicial de motivos de consulta
+### 3.3 Lo que cuenta el equipo (≈5 minutos, anónimo)
+
+El dueño cuenta lo que cree que pasa; quien hace el trabajo cuenta lo que pasa de verdad. Cada persona del equipo contesta, sin poner su nombre:
+
+| N.º | Pregunta |
+|---|---|
+| E1 | ¿Qué tarea repetitiva de tu semana te resulta más pesada? ¿Cuánto tiempo te lleva, más o menos? |
+| E2 | ¿Dónde se atasca esa tarea? ¿Qué excepciones te obligan a pararte o a preguntar a alguien? |
+| E3 | ¿Se hace siempre igual? (siempre igual · casi siempre, con excepciones · depende de cada caso) |
+
+Sus respuestas alimentan el cruce «lo dicho frente al dato» (6.4) y pueden convertirse en tarjetas de problema. La E3 decide si un proceso se puede automatizar tal cual (7.1).
+
+### 3.4 Catálogo inicial de motivos de consulta
 
 Cada motivo es un protocolo: ya trae sus áreas, sus preguntas, sus indicadores, sus fórmulas y los patrones de solución más probables. El catálogo crece con cada empresa nueva.
 
@@ -244,7 +259,7 @@ más dos campos: **área** a la que pertenece y **dolor** declarado (1-5, pregun
 
 | Código | Qué mide | Operación | Si falta un dato |
 |---|---|---|---|
-| F1 | Horas a mano | h/semana × 4,3 × 12 × €/hora | Sin €/hora: solo horas al año |
+| F1 | Horas a mano | h/semana × semanas trabajadas al año (45) × €/hora | Sin €/hora: solo horas al año. Se marca si es tiempo del equipo o dinero (5.2) |
 | F2 | Ventas o clientes perdidos | importe perdido × margen bruto | Sin margen: se da el importe de ventas como dato [E] y se avisa de que el coste real es menor; el margen, si se supone, es [S] |
 | F3 | Stock parado | valor del stock parado × coste anual de tenerlo (financiero, almacén, obsolescencia) | Sin coste anual declarado: solo el valor inmovilizado |
 | F4 | Consumos y gastos evitables | gasto anual × % de reducción esperado | El % casi siempre es [S]: va como hipótesis, nunca en el titular |
@@ -253,12 +268,21 @@ más dos campos: **área** a la que pertenece y **dolor** declarado (1-5, pregun
 
 Reglas:
 
-- Semanas a mes: × 4,3. Mes a año: × 12. Se redondea hacia abajo, al final del cálculo.
+- Semanas a año: × 45 (52 menos unas 4 de vacaciones y unas 3 de festivos), ajustable en cada caso si la empresa cierra en agosto o trabaja por temporadas. Se redondea hacia abajo, al final del cálculo.
 - De un rango declarado («3 o 4»), se usa el valor bajo.
-- La operación se muestra completa, con el origen de cada número. Ejemplo: `Consultas técnicas: 30/día [E] × 5 min [E] = 150 min/día = 2,5 h/día × 5 días × 4,3 = 53 h/mes [cálculo]`.
+- La operación se muestra completa, con el origen de cada número. Ejemplo: `Consultas técnicas: 30/día [E] × 5 min [E] = 2,5 h/día × 5 días [S] = 12,5 h/semana × 45 semanas/año = 562 h/año`.
 - Un problema sin ninguna cifra queda **sin datos** en euros; no se le inventa un coste. Sigue en el diagnóstico, pero no puede encabezar el orden por retorno.
 
-### 5.2 Inventario de datos
+### 5.2 Ahorro en dinero frente a tiempo del equipo
+
+Cada cálculo de horas (F1) se marca de una de dos formas:
+
+- **Tiempo del equipo** (lo normal): horas de la plantilla fija que quedarían libres para otras tareas. Pasadas a euros (horas × coste por hora) son **coste de oportunidad**: cuentan en la matriz dolor × euros, marcadas, pero **no se suman** al dinero.
+- **Dinero**: horas extra, una subcontrata o una contratación prevista que de verdad dejarían de pagarse.
+
+El titular del informe da siempre dos cifras separadas: «lo que cuestan los problemas en dinero» y «tiempo del equipo que se va en ellos». Las hipótesis [S] no entran en el titular; las ventas perdidas sin margen se avisan como cota alta.
+
+### 5.3 Inventario de datos
 
 Para cada fuente de datos que aparece (programa de gestión, Excel, móviles, carpetas): qué contiene, desde cuándo, quién la tiene y un semáforo con tres preguntas: ¿existe? ¿está completa? ¿es fiable? Las pistas de errores se anotan con su origen. Este inventario alimenta el área A6 y decide la viabilidad de los patrones que necesitan datos.
 
@@ -313,6 +337,8 @@ Cada tarjeta se coloca según su dolor (1-5) y su coste anual. El umbral entre �
 | **Duele mucho (4-5)** | **Primero.** Se aborda en el orden por retorno | **Se explica con cifras.** Solo se aborda si es muy barato y rápido (el papel higiénico) |
 | **Duele poco (1-3)** | **Lo que no ves y te está costando.** Se presenta con su operación (la climatización de una nave de 3.000 m²) | **Aparcado**, con su destino |
 
+Las tarjetas cuyo coste es solo tiempo del equipo se colocan con su coste de oportunidad y van marcadas. Sin coste por hora declarado, se quedan en horas y no se colocan en el eje de euros.
+
 El dolor no decide el orden, pero sirve para dos cosas: elegir el **primer quick win** (algo que la empresa note en dos semanas) y saber **cómo comunicar** cada propuesta.
 
 ### 6.6 Lo que no conviene tocar todavía
@@ -334,7 +360,9 @@ La herramienta ordena las tarjetas en tres escalones y explica en una línea por
    - parcial: falta algo que se puede conseguir;
    - no viable ahora: pasa a «lo que no conviene tocar todavía».
 
-Dentro de cada escalón, a igualdad, va antes lo que se nota en dos semanas. Las tarjetas sin euros van al final del escalón 3, salvo que sean urgencia o base.
+Dentro de cada escalón, a igualdad, va antes lo que se nota en dos semanas y, después, lo que menos esfuerzo pide (bajo: días · medio: semanas · alto: meses). Las tarjetas sin euros van al final del escalón 3, salvo que sean urgencia o base.
+
+**Regla de proceso fijo:** los patrones que automatizan pasos (P4, P5) necesitan que el proceso se haga siempre igual. Si la respuesta es «depende de cada caso», la viabilidad baja a parcial con el motivo «primero hay que fijar el proceso».
 
 El consultor puede mover cualquier tarjeta; la herramienta le pide una frase con el motivo y la conserva en el informe.
 
@@ -345,6 +373,12 @@ El consultor puede mover cualquier tarjeta; la herramienta le pide una frase con
 | **OpenCode construye** | Hace falta software a medida | Ficha de tratamiento + kit completo del arnés |
 | **OpenCode asiste** | Un análisis puntual o un trabajo que hace una persona con ayuda del agente | Ficha de tratamiento + kit ligero (AGENTS.md, contexto y comandos) |
 | **No hace falta agente** | Cambiar un proceso, contratar una herramienta existente, empezar a registrar datos, formar | Ficha de tratamiento con los pasos; sin kit |
+
+**Ayuda para elegir el destino.** Tres preguntas, para no meter IA donde basta un programa normal:
+
+- ¿La entrada son datos ordenados y las reglas son fijas? → OpenCode construye un programa normal (script o integración), sin IA (P5, P1). Si el proceso cambia cada vez, primero hay que fijarlo.
+- ¿La entrada son documentos o texto libre? → OpenCode construye con IA (P4 para extraer datos, P3 para responder con documentos).
+- ¿Depende del criterio de una persona? → No hace falta agente: procedimiento escrito o formación.
 
 ### 7.3 Catálogo inicial de patrones de solución
 
@@ -370,6 +404,17 @@ Una por cada problema que se decide abordar:
 - Restricciones: presupuesto (M8), lo que no se toca (M9), datos que no pueden salir.
 - Preguntas abiertas: todo lo que quedó **sin datos**.
 - Primer paso concreto.
+- **Esfuerzo** (bajo, medio o alto) y **retorno esperado**: la tarjeta mide lo que cuesta hoy el problema; el ahorro de la solución es ese coste × el % que resuelve [S]. Con IA nunca es 100 %, porque siempre hay revisión humana. Con la inversión inicial y el coste al mes, la herramienta calcula en cuántos meses se recupera (redondeando hacia arriba) y, si parte del ahorro es tiempo del equipo, también el plazo contando solo el dinero.
+
+### 7.4 bis Hoja de ruta en tres horizontes
+
+| Horizonte | Qué entra |
+|---|---|
+| Mes 1 | Urgencias y la primera victoria rápida |
+| Meses 2-3 | Bases y lo que más retorno da (viable, con cifra y esfuerzo no alto) |
+| Después | Lo que necesita más preparación (viabilidad parcial, esfuerzo alto) o todavía no tiene cifra |
+
+Sale del orden de 7.1. El consultor puede mover un problema de horizonte.
 
 ### 7.5 El kit del arnés
 
@@ -431,7 +476,7 @@ Lo que tomamos de cada una y dónde se usa. (Versiones a contrastar antes de cer
 | Canvas de IA | Agrawal, Gans y Goldfarb, 2018 | Qué predicción, con qué datos y qué juicio humano | 7.3 |
 | *Machine Learning Canvas* | Louis Dorard | Encaje de un proyecto de datos | 7.3 |
 | CRISP-DM | Consorcio CRISP-DM, 1999-2000 | Fases de un proyecto de datos: entender el negocio y los datos antes de modelar | P1, P2 |
-| Niveles de preparación de datos | Neil Lawrence, 2017 | Viabilidad según el estado de los datos | 5.2, 7.1 |
+| Niveles de preparación de datos | Neil Lawrence, 2017 | Viabilidad según el estado de los datos | 5.3, 7.1 |
 | Reglamento europeo de IA y RGPD | Reglamento (UE) 2024/1689 y Reglamento (UE) 2016/679 | Trampas y urgencias legales | 6.2, 6.6 |
 | PDCA | Shewhart y Deming | Ciclo de revisión | 8 |
 | Arnés del agente y desarrollo guiado por especificaciones | Práctica actual de ingeniería con agentes (curso UD4) | Kit de salida | 7.5 |
@@ -447,7 +492,7 @@ Nota: las obligaciones de los sistemas de IA de alto riesgo del Reglamento europ
 |---|---|
 | **Cliente** | Fran Sánchez (primer usuario: consultor; después, alumnado de 2.º DAM) |
 | **Solución** | Herramienta web de diagnóstico de empresas A → B, con salida a arnés |
-| **Versión** | 0.1 · Estado: BORRADOR PARA REVISIÓN |
+| **Versión** | 0.2 · Estado: EN USO, PENDIENTE DE PROBAR CON UN CASO REAL |
 
 ## R1 · Problema
 
@@ -491,7 +536,7 @@ Diagnosticar una empresa hoy depende del ojo del consultor: no hay un método co
 | RF-07 | Explorar cada área con sus descriptores 1-5, pedir evidencia para guardar el nivel y registrar la autopuntuación de la empresa. | M |
 | RF-08 | Activar u ocultar el chequeo general de las 8 áreas. | M |
 | RF-09 | Crear tarjetas de problema con área, dolor, fórmula F1-F6, datos y origen [E]/[C]/[S], y calcular el coste mostrando la operación. | M |
-| RF-10 | Aplicar las reglas de cálculo: × 4,3, redondeo hacia abajo, valor bajo de los rangos, hipótesis separadas y «sin datos» cuando falte un dato imprescindible. | M |
+| RF-10 | Aplicar las reglas de cálculo: × semanas trabajadas al año (45 por defecto, ajustable), redondeo hacia abajo, valor bajo de los rangos, hipótesis separadas y «sin datos» cuando falte un dato imprescindible. | M |
 | RF-11 | Registrar el inventario de datos con semáforo. | S |
 | RF-12 | Fijar el punto B: objetivo general, nivel objetivo e importancia por área, valor objetivo por indicador. | M |
 | RF-13 | Calcular brechas y clasificar fortalezas, debilidades y urgencias. | M |
@@ -508,6 +553,13 @@ Diagnosticar una empresa hoy depende del ojo del consultor: no hay un método co
 | RF-24 | Guiar cada paso con una explicación breve en tres líneas («Qué hacemos aquí», «Por qué importa», «Cómo se hace»), un ejemplo resuelto (Hidrotex u otro del catálogo) y un aviso de qué falta para poder seguir. Las ayudas se pueden ocultar. | M |
 | RF-25 | Explicar con una frase sencilla cada resultado: por qué un área es fortaleza o debilidad, por qué un problema va en ese cuadrante de la matriz y por qué ocupa ese puesto en el orden. | M |
 | RF-26 | Ofrecer un glosario emergente para los términos que aparecen (brecha, indicador, hipótesis, arnés…), sin jerga en lo que ve el empresario. | S |
+| RF-27 | Generar el cuestionario anónimo del equipo (E1-E3), importar cada respuesta, mostrarla junto al cruce «lo dicho frente al dato» y crear tarjetas a partir de ella. | M |
+| RF-28 | Marcar cada cálculo de horas como tiempo del equipo o dinero; dar en el titular dos cifras separadas y dejar fuera las hipótesis. | M |
+| RF-29 | Registrar esfuerzo, % que resuelve la solución, inversión y coste al mes, y calcular el ahorro y los meses para recuperar la inversión. | M |
+| RF-30 | Ayudar a elegir el destino con tres preguntas (entrada, regularidad, criterio) y bajar a parcial la viabilidad de P4 y P5 si el proceso no es fijo. | S |
+| RF-31 | Mostrar la hoja de ruta en tres horizontes, ajustable por el consultor, en el tratamiento y en el informe. | S |
+| RF-32 | Descargar un Excel de cálculos con fórmulas vivas (cálculos, retorno y una hoja de instrucciones). | S |
+| RF-33 | Incluir al pie del informe la leyenda [E]/[C]/[S] y el aviso de que el cuestionario es solo la entrada. | M |
 
 M = imprescindible · S = debería · C = podría (MoSCoW).
 
@@ -529,7 +581,7 @@ M = imprescindible · S = debería · C = podría (MoSCoW).
 
 | Id | Dado… | Cuando… | Entonces… |
 |---|---|---|---|
-| CA-01 | una tarea de 3 h/semana [E] sin coste por hora declarado | se calcula F1 | se muestra «154 h/año» (3 × 4,3 × 12 = 154,8, redondeado hacia abajo) con la operación y sin euros |
+| CA-01 | una tarea de 3 h/semana [E] sin coste por hora declarado | se calcula F1 | se muestra «135 h/año» (3 × 45) con la operación y sin euros |
 | CA-02 | un rango declarado de «3 o 4 roturas al año» | se usa en una fórmula | se toma 3 y se indica |
 | CA-03 | una tarjeta con dolor 5 y coste de 200 €/año, con umbral de 5.000 € | se coloca en la matriz | queda en «duele mucho, cuesta poco» con el mensaje «se explica con cifras» |
 | CA-04 | una tarjeta con dolor 2 y coste de 12.000 €/año | se coloca en la matriz | queda en «lo que no ves y te está costando» |
@@ -542,13 +594,20 @@ M = imprescindible · S = debería · C = podría (MoSCoW).
 | CA-12 | una persona que abre la herramienta por primera vez | entra en cualquier paso | ve qué se hace, por qué importa, cómo se hace y un ejemplo, y puede ocultar la ayuda |
 | CA-13 | un problema colocado en «se explica con cifras» | se muestra el resultado | aparece una frase sencilla del tipo «Te molesta mucho, pero cuesta unos 300 € al año; hay otros problemas que te cuestan bastante más» |
 | CA-11 | un texto importado con un listado de clientes con teléfonos | se importa | la herramienta avisa y no lo incorpora hasta que se quite |
+| CA-14 | 10 h/semana de la plantilla a 20 €/h, marcadas como tiempo del equipo | se calcula | 9.000 €/año de coste de oportunidad: cuenta en la matriz, pero no en el dinero del titular, que da 450 h/año aparte |
+| CA-15 | las mismas horas marcadas como dinero (horas extra) | se calcula | suman 9.000 € al dinero |
+| CA-16 | coste de 12.000 €/año, solución que resuelve el 50 % [S], inversión de 3.000 € y 100 €/mes | se calcula el retorno | 6.000 €/año de ahorro; se recupera en 8 meses (7,5 redondeado hacia arriba) |
+| CA-18 | una tarjeta con patrón P5 y proceso «depende de cada caso» | se calcula el orden | baja a viabilidad parcial con el motivo «el proceso no se hace siempre igual» |
+| CA-19 | entrada de datos ordenados y reglas fijas | se pide ayuda para el destino | sugiere un programa normal, sin IA |
+| CA-20 | el caso Hidrotex | se calcula la hoja de ruta | mes 1: T5 · meses 2-3: T1 y T2 · después: T3, T4 y T6 |
+| CA-22 | un ahorro que depende de un % supuesto [S] | se da el titular | no entra en la cifra principal; se menciona aparte |
 
 ## R12 · Tabla de ejemplos y umbral
 
 | N.º | Entrada | Salida esperada |
 |---|---|---|
 | 1 | Caso Hidrotex del Anexo A | Mismas áreas, mismos costes y mismo orden que el Anexo A |
-| 2 | 30 consultas/día × 5 min, 5 días/semana | 53 h/mes · 645 h/año (se redondea al final: 2,5 × 5 × 4,3 × 12 = 645) |
+| 2 | 30 consultas/día × 5 min, 5 días/semana | 562 h/año (se redondea al final: 2,5 × 5 × 45 = 562,5) |
 | 3 | Ventas perdidas 30.000-40.000 € [E], margen no declarado | «30.000 € de ventas perdidas [E]; el coste real es el margen sobre esa cifra [PENDIENTE: margen]» |
 | 4 | Papel higiénico: dolor 5, 300 €/año [E] | Cuadrante «se explica con cifras» |
 | 5 | Climatización de nave de 3.000 m²: dolor 1, gasto 40.000 €/año [E], reducción 15 % [S] | Cuadrante «lo que no ves y te está costando»; ahorro de 6.000 €/año marcado como hipótesis y fuera del titular |
@@ -574,7 +633,8 @@ M = imprescindible · S = debería · C = podría (MoSCoW).
 3. Revisión de los descriptores de las 8 áreas por Fran, con su experiencia de empresa.
 4. Umbral por defecto de la matriz dolor × euros: ¿1 % de la facturación o un valor fijo por tamaño de empresa?
 5. Qué se recorta para la versión del alumnado y qué ayudas se añaden (ejemplo de Hidrotex en cada paso).
-6. Estimación de inversión por patrón: ¿rangos orientativos en el catálogo o siempre a mano?
+6. ~~Estimación de inversión por patrón~~ Resuelta en la v0.2: a mano en cada ficha, con el cálculo de meses para recuperarla.
+7. Cifrado del almacenamiento local con contraseña: previsto para la v0.3 (si se olvida la contraseña, el caso se pierde).
 
 ---
 
@@ -611,8 +671,8 @@ Brechas: A5 (2), A3 (2), A6 (2), A2 (1, importancia alta), A1 (1), A8 (1). **Deb
 | T1 · Los datos no son fiables | A6 | 2 | Sin coste propio; es **base** de T2 y T3 | Ventas sep 2024-ago 2026 con 5 pistas de error [E] | P1 |
 | T2 · Roturas de stock de splits en temporada | A3 | 5 | **30.000 € de ventas perdidas** en junio de 2025 [E, valor bajo del rango]; el coste real es el margen [PENDIENTE: margen]. Descuento del 5 % antes del 15 de marzo: [PENDIENTE: importe de la compra] | Dos años de ventas [E] | P2 |
 | T3 · Calderas paradas | A3 | 3 | 14 calderas [E] × [PENDIENTE: coste por unidad]: sin datos en euros | Stock en el programa + Excel nave 2 [E] | P2 |
-| T4 · Colas en el mostrador | A2, A5 | 4 | 30 consultas técnicas/día [E] × 5 min [E, valor bajo] = 2,5 h/día × 5 días [S] × 4,3 = **53 h/mes de temporada**; sin €/hora declarado. Riesgo por la jubilación de Antonio en 2028 [E]: hipótesis, fuera del titular | 400 fichas PDF sin ordenar [E] | P3 |
-| T5 · Pedidos de WhatsApp perdidos | A2, A7 | 3 | 1 pedido/semana [E, valor bajo] × 4,3 = 4 pedidos/mes × [PENDIENTE: importe medio]: sin datos en euros | Ninguno: los pedidos no se registran [E] | Sin agente |
+| T4 · Colas en el mostrador | A2, A5 | 4 | 30 consultas técnicas/día [E] × 5 min [E, valor bajo] = 2,5 h/día × 5 días [S] × 45 semanas = **562 h/año** de tiempo del equipo; sin €/hora declarado. Riesgo por la jubilación de Antonio en 2028 [E]: hipótesis, fuera del titular | 400 fichas PDF sin ordenar [E] | P3 |
+| T5 · Pedidos de WhatsApp perdidos | A2, A7 | 3 | 1 pedido/semana [E, valor bajo] × 45 semanas = 45 pedidos/año × [PENDIENTE: importe medio]: sin datos en euros | Ninguno: los pedidos no se registran [E] | Sin agente |
 | T6 · Clientes que dejan de comprar | A1 | 2 | Sin cifra [E] | Hoja con repetidos + ventas [E] | P6 |
 
 ## A.4 Cruces confirmados
@@ -620,6 +680,8 @@ Brechas: A5 (2), A3 (2), A6 (2), A2 (1, importancia alta), A1 (1), A8 (1). **Deb
 - **Lo dicho frente al dato:** Ramón cree que los datos están bien [E] · Rosa cuenta un corte de exportación, otro ordenador, precios retocados, fichas borradas y una referencia repetida [E].
 - **El imprescindible:** «Antonio se lo sabe» [E] · solo 2 de 5 resuelven lo técnico y uno se jubila en 2028 [E].
 - **Dolor frente a euros:** el mostrador es lo más visible del día a día · la única pérdida en euros declarada está en las compras.
+
+El cuestionario del equipo lo confirma: administración cuenta que la exportación se corta y hay precios retocados a mano; el mostrador, que sin Antonio hay que buscar entre 400 fichas y que «depende de cada caso».
 
 ## A.5 Matriz dolor × euros
 
@@ -640,7 +702,7 @@ Solo T2 tiene coste en euros; el consultor fija el umbral a mano en 5.000 €/a�
 | 4 | T4 · Asistente del mostrador | Retorno (viabilidad parcial) | Hay que ordenar antes las 400 fichas | OpenCode construye (P3), después de ordenar |
 | 5 | T6 · Aviso de clientes | Retorno (sin euros) | Ampliación cuando los datos estén limpios | OpenCode construye (P6) |
 
-La regla automática pone T6 antes que T4, porque T6 es viable y T4 tiene viabilidad parcial. El consultor sube T4 y deja escrito el motivo: «tiene 645 h/año medidas y una jubilación con fecha; el aviso de clientes no tiene ninguna cifra». Es el ejemplo de ajuste manual con motivo (RF-17).
+La regla automática pone T6 antes que T4, porque T6 es viable y T4 tiene viabilidad parcial. El consultor sube T4 y deja escrito el motivo: «tiene 562 h/año medidas y una jubilación con fecha; el aviso de clientes no tiene ninguna cifra». Es el ejemplo de ajuste manual con motivo (RF-17).
 
 **Lo que no conviene tocar todavía:** evaluar con IA a los empleados del mostrador (alto riesgo en el Reglamento europeo); pasar los WhatsApp a una IA (datos personales); montar el asistente del mostrador antes de ordenar las fichas.
 
