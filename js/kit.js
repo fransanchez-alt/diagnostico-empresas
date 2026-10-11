@@ -1,5 +1,5 @@
 // Genera los archivos del arnés para una tarjeta (pura: sin DOM ni red).
-import { costeTarjeta, etiquetaCoste, cuadrante, umbralMatriz, ordenFinal, areasEnJuego, clasificarAreas, CUADRANTES, fmt } from './logic.js';
+import { costeTarjeta, etiquetaCoste, cuadrante, umbralMatriz, ordenFinal, areasEnJuego, clasificarAreas, CUADRANTES, fmt, opciones, retorno, horizontes, HORIZONTES } from './logic.js';
 
 // Archivo de plantilla → ruta dentro del kit. "ligero" indica si va también en el kit ligero.
 export const MAPA_KIT = [
@@ -30,9 +30,12 @@ export function variablesKit(caso, t, ctx) {
   const area = areas.find((a) => a.id === t.area);
   const dest = base.destinos.find((d) => d.id === t.destino);
   const r = caso.respuestas || {};
-  const c = costeTarjeta(t);
+  const op = opciones(caso);
+  const c = costeTarjeta(t, op);
   const umb = umbralMatriz(caso);
-  const q = cuadrante(t, umb.valor, caso.tarjetas || []);
+  const q = cuadrante(t, umb.valor, caso.tarjetas || [], op);
+  const ret = retorno(t, op);
+  const hz = Object.values(horizontes(caso, patrones)).flat().find((i) => i.id === t.id);
   const orden = ordenFinal(caso, patrones).items;
   const pos = orden.find((i) => i.id === t.id);
   const st = (caso.areas || {})[t.area] || {};
@@ -63,11 +66,14 @@ export function variablesKit(caso, t, ctx) {
     OBJETIVO_GENERAL: o(caso.objetivoGeneral, 'objetivo general'),
     AREA: area ? area.nombre : P('área'),
     DOLOR: t.dolor || '—',
-    COSTE: etiquetaCoste(t),
+    COSTE: etiquetaCoste(t, op),
     OPERACIONES: c.partes.length ? c.partes.map((p) => `- ${p.operacion}${p.hipotesis ? ' (incluye supuestos)' : ''}`).join('\n') : '- Sin cálculo.',
     CUADRANTE: `${CUADRANTES[q.clave].titulo}. ${q.frase}`,
     POSICION: pos ? `${pos.posicion}.º · ${pos.porque}${pos.ajustada ? ` Ajustado por el consultor: ${pos.motivoAjuste}` : ''}` : 'Fuera del orden (no viable ahora o no se aborda).',
     INDICADOR: indicador,
+    HORIZONTE: hz ? `${HORIZONTES[hz.horizonte].titulo} · ${HORIZONTES[hz.horizonte].texto}` : 'Fuera de la hoja de ruta.',
+    RETORNO: ret.ahorro !== null ? `${ret.operacion}${ret.notas.length ? ' ' + ret.notas.join(' ') : ''}` : P(ret.faltan.join(' y ')),
+    ESFUERZO: t.esfuerzo || P('esfuerzo (bajo, medio o alto)'),
     RESTRICCIONES: [r.M8 && `presupuesto: ${r.M8}`, r.M9 && `no se toca: ${r.M9}`].filter(Boolean).join('; ') || P('restricciones del cliente'),
     STACK: pat ? pat.stack : P('stack'),
     PATRON: pat ? `${pat.id} · ${pat.nombre}` : 'Sin patrón',
