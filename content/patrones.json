@@ -1,0 +1,126 @@
+[
+  {
+    "id": "P1", "nombre": "Revisión y limpieza de datos", "slug": "revision-datos",
+    "areas": ["A6"], "requiere": [], "destino": "construye",
+    "previos": "Acceso a una exportación de los datos (CSV o Excel).",
+    "verificacion": "Detecta todos los errores de una tabla de ejemplos con errores sembrados.",
+    "riesgos": ["Corregir datos sin avisar a nadie.", "Tocar el sistema original de la empresa."],
+    "stack": "Python 3 con pandas; tests con pytest.",
+    "rfs": [
+      "Leer los ficheros de datos sin modificarlos.",
+      "Detectar filas duplicadas.",
+      "Detectar fechas en formatos distintos al esperado.",
+      "Detectar importes que no son un número válido.",
+      "Detectar referencias a registros que no existen (clientes, productos).",
+      "Generar un informe en lenguaje sencillo: qué está mal, cuántas veces, dónde y cómo arreglarlo."
+    ],
+    "ca": [
+      ["un fichero con dos filas idénticas", "se ejecuta la revisión", "el informe muestra 1 duplicado y su posición"],
+      ["una fecha escrita en otro formato", "se lee el fichero", "se interpreta bien y se avisa del formato"],
+      ["un fichero vacío o que no existe", "se ejecuta la revisión", "termina con un mensaje claro, sin fallar"]
+    ],
+    "ejemplos": "Tabla de 6 a 10 errores sembrados a propósito, uno de cada tipo.",
+    "umbral": "Detecta todos los errores de la tabla."
+  },
+  {
+    "id": "P2", "nombre": "Previsión de demanda", "slug": "prevision-demanda",
+    "areas": ["A3"], "requiere": ["P1"], "destino": "construye",
+    "previos": "Datos de ventas revisados (P1) y al menos dos temporadas de histórico.",
+    "verificacion": "Se equivoca menos que la regla que usa hoy la empresa (por ejemplo, «lo mismo que el año pasado»).",
+    "riesgos": ["Prometer una precisión que no tiene.", "Productos nuevos dados de alta con la misma referencia que los antiguos."],
+    "stack": "Python 3 con pandas y scikit-learn; tests con pytest.",
+    "rfs": [
+      "Calcular las ventas por mes y por producto a partir de los datos revisados.",
+      "Calcular la previsión de la regla actual de la empresa como punto de comparación.",
+      "Calcular una previsión con un modelo sencillo.",
+      "Medir el error de las dos sobre un periodo que no se usó para ajustar.",
+      "Recomendar cuánto pedir y explicar con qué previsión y por qué."
+    ],
+    "ca": [
+      ["dos años de ventas revisadas", "se pide la previsión de la temporada", "se muestra la recomendación y el error frente a la regla actual"],
+      ["un modelo que no mejora a la regla actual", "se compara", "se recomienda la regla actual y se explica por qué"]
+    ],
+    "ejemplos": "Meses reservados para comprobar, con la venta real conocida.",
+    "umbral": "Error medio menor que el de la regla actual; si no, se recomienda la regla."
+  },
+  {
+    "id": "P3", "nombre": "Asistente con documentos", "slug": "asistente-documentos",
+    "areas": ["A2", "A5"], "requiere": [], "destino": "construye",
+    "previos": "Documentos ordenados y al día (fichas, manuales, procedimientos).",
+    "verificacion": "Responde bien a una tabla de preguntas reales citando el documento; cuando no sabe, lo dice.",
+    "riesgos": ["Inventar respuestas.", "Responder con documentos obsoletos.", "Datos personales en las preguntas."],
+    "stack": "Python 3; búsqueda en los documentos (TF-IDF o similar) y un modelo de lenguaje que cite la fuente; plan B solo con búsqueda.",
+    "rfs": [
+      "Cargar los documentos y prepararlos para buscar.",
+      "Encontrar los fragmentos que responden a una pregunta.",
+      "Responder citando el documento y la página o sección.",
+      "Decir «no lo sé» cuando no encuentra respuesta en los documentos."
+    ],
+    "ca": [
+      ["una pregunta cuya respuesta está en una ficha", "se pregunta", "responde y cita la ficha"],
+      ["una pregunta sin respuesta en los documentos", "se pregunta", "dice que no lo sabe y no inventa"]
+    ],
+    "ejemplos": "Tabla de 10 preguntas reales con la respuesta correcta y su documento.",
+    "umbral": "Al menos 8 de 10 correctas con cita, y ninguna inventada."
+  },
+  {
+    "id": "P4", "nombre": "Extracción de documentos a datos", "slug": "extraccion-documentos",
+    "areas": ["A4", "A3"], "requiere": [], "destino": "construye",
+    "previos": "Una muestra de documentos reales (facturas, albaranes) sin datos personales o anonimizados.",
+    "verificacion": "Los campos extraídos coinciden con la revisión humana; los dudosos se marcan.",
+    "riesgos": ["Errores silenciosos en importes.", "Datos personales en los documentos."],
+    "stack": "Python 3; lectura de PDF; salida a un JSON intermedio que una persona revisa antes de usarlo.",
+    "rfs": [
+      "Leer cada documento de una carpeta.",
+      "Extraer los campos acordados (fecha, número, importe, etc.).",
+      "Guardar los datos en un fichero intermedio revisable.",
+      "Marcar los campos dudosos o que no se pudieron leer."
+    ],
+    "ca": [
+      ["una factura legible", "se extrae", "los campos coinciden con la revisión humana"],
+      ["un documento ilegible", "se extrae", "se marca como dudoso y no se inventa ningún valor"]
+    ],
+    "ejemplos": "20 documentos revisados a mano campo a campo.",
+    "umbral": "Al menos el 95 % de los campos correctos y el 100 % de los dudosos marcados."
+  },
+  {
+    "id": "P5", "nombre": "Automatización de un proceso", "slug": "automatizacion-proceso",
+    "areas": [], "requiere": [], "destino": "construye",
+    "previos": "El proceso dibujado paso a paso y estable.",
+    "verificacion": "Hace lo mismo que la persona en los casos de la tabla y avisa cuando algo falla.",
+    "riesgos": ["Automatizar un proceso mal diseñado.", "Acciones irreversibles sin confirmación."],
+    "stack": "Script en Python o flujo en una herramienta de automatización; siempre con confirmación antes de acciones irreversibles.",
+    "rfs": [
+      "Recibir la entrada del proceso.",
+      "Hacer los pasos acordados.",
+      "Pedir confirmación antes de cualquier acción que no se pueda deshacer.",
+      "Registrar lo que ha hecho y avisar si algo falla."
+    ],
+    "ca": [
+      ["un caso normal del proceso", "se ejecuta", "el resultado es el mismo que haría la persona"],
+      ["una entrada incompleta", "se ejecuta", "se detiene y avisa sin hacer nada a medias"]
+    ],
+    "ejemplos": "10 casos reales del proceso con el resultado que dio la persona.",
+    "umbral": "Los 10 casos con el mismo resultado."
+  },
+  {
+    "id": "P6", "nombre": "Captación y seguimiento de clientes", "slug": "seguimiento-clientes",
+    "areas": ["A1", "A2"], "requiere": ["P1"], "destino": "construye",
+    "previos": "Registro de clientes y de ventas o consultas, revisado.",
+    "verificacion": "Detecta a los clientes de la tabla que deberían recibir aviso.",
+    "riesgos": ["Datos personales.", "Mensajes no deseados."],
+    "stack": "Python 3 con pandas; salida en lista o informe para que una persona decida.",
+    "rfs": [
+      "Unificar clientes repetidos.",
+      "Calcular cuánto hace que cada cliente habitual no compra.",
+      "Avisar de los clientes que superan el plazo acordado.",
+      "No enviar nada automáticamente: la lista la revisa una persona."
+    ],
+    "ca": [
+      ["un cliente habitual que lleva más del plazo sin comprar", "se ejecuta", "aparece en la lista de aviso"],
+      ["un cliente repetido con dos nombres", "se unifica", "aparece una sola vez"]
+    ],
+    "ejemplos": "Lista de clientes con su última compra y si deberían recibir aviso.",
+    "umbral": "Todos los clientes de la tabla clasificados correctamente."
+  }
+]
