@@ -1,0 +1,111 @@
+{
+  "tipo": "caso-diagnostico",
+  "version": "0.1",
+  "id": "ejemplo-hidrotex",
+  "ejemplo": true,
+  "creado": "2026-10-11T10:00:00.000Z",
+  "actualizado": "2026-10-11T10:00:00.000Z",
+  "empresa": { "nombre": "Hidrotex (ejemplo)", "sector": "Distribución de fontanería y climatización", "facturacion": "" },
+  "origenRespuestas": "entrevista",
+  "respuestas": {
+    "M1": "Hidrotex Suministros: distribuidor de fontanería, calefacción y aire acondicionado para instaladores profesionales.",
+    "M2": "Gerente, administración (Rosa), tres comerciales, cinco personas de mostrador y almacén (jefe: Juan).",
+    "M3": "Decidme qué datos tengo y si están en condiciones. Y no volver a quedarme sin aire acondicionado en temporada.",
+    "M4": "Contestar consultas técnicas en el mostrador; preparar pedidos que llegan por WhatsApp; sacar ventas del programa.",
+    "M5": "No volver a quedarme sin splits en junio.",
+    "M6": "5",
+    "M7": "",
+    "M8": "Unos 200 € al mes, si se ve que sirve.",
+    "M9": "El programa de gestión no se toca. Nadie sabe programar.",
+    "MC2-1": "Lo pido en abril, a ojo, acordándome de lo que vendí el año anterior.",
+    "MC2-2": "En junio de 2025, tres semanas sin splits de 3.500 frigorías. Perdí entre 30.000 y 40.000 euros en ventas.",
+    "MC2-3": "En marzo de 2026 tenía 14 calderas paradas en el almacén.",
+    "MC2-4": "5 % de descuento si pido el aire antes del 15 de marzo; casi nunca llego.",
+    "MC5-1": "Programa de gestión desde 2009. Rosa puede sacar dos años de ventas. Excel del stock de la nave 2 aparte.",
+    "MC5-2": "Ninguno en concreto; sacarlas por meses es un lío.",
+    "MC5-3": "Una exportación se cortó en noviembre; marzo salió desde el ordenador de la tienda; precios retocados a mano; fichas de cliente genéricas borradas; un split nuevo con la misma referencia que el antiguo."
+  },
+  "canvas": {
+    "socios": "Ocho fabricantes y proveedores de climatización y fontanería",
+    "actividades": "Comprar bien la temporada, tener stock, asesorar en el mostrador",
+    "recursos": "Almacén y nave 2, programa de gestión desde 2009, la experiencia de Antonio",
+    "propuesta": "Tener el material cuando el instalador lo necesita y saber aconsejarle",
+    "relacion": "Trato personal en el mostrador, teléfono y WhatsApp",
+    "canales": "Mostrador de 7:30 a 9:30, WhatsApp, tres comerciales",
+    "segmentos": "Unos 90 instaladores profesionales; veinte concentran casi todo",
+    "costes": "Compras de temporada, personal, almacén",
+    "ingresos": "Margen sobre la venta de material"
+  },
+  "motivos": ["MC5", "MC2"],
+  "areasManual": ["A2", "A5", "A1", "A8"],
+  "chequeoGeneral": false,
+  "porques": [
+    "Se queda sin splits en junio.",
+    "Porque pide en abril a ojo.",
+    "Porque no mira las ventas: sacarlas por meses es un lío.",
+    "Porque los datos están en el programa, pero salen con errores.",
+    "Causa de fondo: los datos y la forma de decidir la compra, no el proveedor."
+  ],
+  "areas": {
+    "A3": { "nivel": 2, "autonivel": 3, "evidencia": "Pide en abril «a ojo»; el stock de la nave 2 va en un Excel aparte [E].", "subir": "Stock fiable en un solo sitio y compras apoyadas en el histórico.", "objetivo": 4, "importancia": "alta",
+            "indicadores": { "A3-i1": { "valor": "1", "origen": "E", "objetivo": "0" } } },
+    "A6": { "nivel": 2, "autonivel": 4, "evidencia": "Sacar ventas por meses «es un lío»; exportación cortada, precios retocados, referencias repetidas [E].", "subir": "Datos revisados y un par de números mirados cada mes.", "objetivo": 4, "importancia": "alta",
+            "indicadores": { "A6-i1": { "valor": "0", "origen": "E", "objetivo": "3" } } },
+    "A2": { "nivel": 2, "evidencia": "Solo 2 de 5 resuelven lo técnico; pedidos por WhatsApp en el móvil de la tienda [E].", "subir": "Pedidos registrados y respuestas técnicas documentadas.", "objetivo": 3, "importancia": "alta" },
+    "A5": { "nivel": 1, "evidencia": "Antonio no mira las fichas, «se lo sabe»; 400 fichas sin saber cuáles valen [E].", "subir": "Fichas ordenadas y al día, accesibles para todo el mostrador.", "objetivo": 3, "importancia": "alta",
+            "indicadores": { "A5-i1": { "valor": "1", "origen": "E", "objetivo": "0" } } },
+    "A1": { "nivel": 2, "evidencia": "Hoja de clientes desde 2008 con repetidos; se enteran tarde de quién deja de comprar [E].", "subir": "Clientes unificados y aviso de los que dejan de comprar.", "objetivo": 3, "importancia": "media" },
+    "A8": { "nivel": 1, "evidencia": "Solo una oferta de un vendedor, sin probar [E].", "subir": "Normas básicas de uso y una primera tarea con IA supervisada.", "objetivo": 2, "importancia": "baja" },
+    "A7": { "sinDatos": true, "evidencia": "No se sabe nada de copias; datos personales de clientes en el móvil de la tienda [E].", "importancia": "alta" }
+  },
+  "tarjetas": [
+    { "id": "T1", "titulo": "Los datos no son fiables", "area": "A6", "dolor": 2, "calculos": [],
+      "datos": "Ventas de septiembre de 2024 a agosto de 2026 con cinco pistas de error [E].", "solucion": "Revisor que diga qué está mal y cómo arreglarlo.",
+      "patron": "P1", "destino": "construye", "urgencia": "", "baseDe": [], "viabilidad": "viable", "quickWin": false, "abordar": true,
+      "primerPaso": "Leer el fichero de ventas y contar filas y columnas." },
+    { "id": "T2", "titulo": "Roturas de stock de splits en temporada", "area": "A3", "dolor": 5,
+      "calculos": [
+        { "formula": "F2", "campos": { "importe": { "v": "30.000-40.000", "o": "E" } } },
+        { "formula": "F5", "campos": { "descuento": { "v": "5", "o": "E" } } }
+      ],
+      "datos": "Dos años de ventas en el programa [E].", "solucion": "Previsión de compra comparada con la regla actual.",
+      "patron": "P2", "destino": "construye", "urgencia": "", "baseDe": [], "viabilidad": "viable", "quickWin": false, "abordar": true,
+      "primerPaso": "Calcular las ventas por mes del split de 3.500 con los datos ya revisados." },
+    { "id": "T3", "titulo": "Calderas paradas en el almacén", "area": "A3", "dolor": 3,
+      "calculos": [ { "formula": "F3", "campos": {} } ],
+      "datos": "14 calderas [E]; falta el coste por unidad.", "solucion": "La misma previsión de compra que T2.",
+      "patron": "P2", "destino": "construye", "urgencia": "", "baseDe": [], "viabilidad": "viable", "quickWin": false, "abordar": true, "primerPaso": "" },
+    { "id": "T4", "titulo": "Colas en el mostrador por consultas técnicas", "area": "A2", "dolor": 4,
+      "calculos": [
+        { "formula": "F1", "campos": { "vecesDia": { "v": "30", "o": "E" }, "minutos": { "v": "5 o 6", "o": "E" }, "diasSemana": { "v": "5", "o": "S" } } }
+      ],
+      "datos": "Unas 400 fichas técnicas en PDF, sin saber cuáles están al día [E].", "solucion": "Ordenar las fichas y montar un asistente que responda citando la ficha.",
+      "patron": "P3", "destino": "construye", "urgencia": "", "baseDe": [], "viabilidad": "parcial", "quickWin": false, "abordar": true, "primerPaso": "" },
+    { "id": "T5", "titulo": "Pedidos de WhatsApp perdidos y datos de clientes en el móvil", "area": "A2", "dolor": 3,
+      "calculos": [],
+      "datos": "Ninguno: los pedidos no se registran [E]. 1-2 pedidos perdidos a la semana; falta el importe medio.", "solucion": "Normas mínimas para el móvil de la tienda y registrar cada pedido en el programa.",
+      "patron": "", "destino": "sinagente", "urgencia": "Datos personales de clientes fuera de control", "baseDe": [], "viabilidad": "viable", "quickWin": true, "abordar": true,
+      "primerPaso": "Bloqueo del móvil, no reenviar mensajes y apuntar cada pedido en el programa el mismo día." },
+    { "id": "T6", "titulo": "Clientes que dejan de comprar", "area": "A1", "dolor": 2, "calculos": [],
+      "datos": "Hoja de clientes con repetidos y ventas en el programa [E].", "solucion": "Aviso de clientes habituales que llevan tiempo sin comprar.",
+      "patron": "P6", "destino": "construye", "urgencia": "", "baseDe": [], "viabilidad": "viable", "quickWin": false, "abordar": true, "primerPaso": "" }
+  ],
+  "inventario": [
+    { "fuente": "Programa de gestión", "contenido": "Artículos, albaranes y facturas", "desde": "2009", "quien": "Rosa (administración)", "existe": "si", "completa": "duda", "fiable": "no", "pistas": "Exportación cortada en noviembre; marzo desde otro ordenador; precios retocados; fichas genéricas borradas; referencia repetida." },
+    { "fuente": "Excel del stock de la nave 2", "contenido": "Stock de la segunda nave", "desde": "", "quien": "Juan (almacén)", "existe": "si", "completa": "duda", "fiable": "duda", "pistas": "Se lleva aparte porque el programa no distingue naves." },
+    { "fuente": "Hoja de clientes", "contenido": "Clientes profesionales", "desde": "2008", "quien": "Comerciales", "existe": "si", "completa": "si", "fiable": "no", "pistas": "Clientes repetidos, cada comercial apunta a su manera." },
+    { "fuente": "Fichas técnicas PDF", "contenido": "Unas 400 fichas de ocho proveedores", "desde": "", "quien": "Carpeta compartida", "existe": "si", "completa": "duda", "fiable": "no", "pistas": "Las viejas no se borran cuando sale un modelo nuevo." }
+  ],
+  "objetivoGeneral": "Saber qué datos tiene y en qué estado, y decidir la compra de temporada con ellos para no quedarse sin aire acondicionado en junio.",
+  "umbralManual": "5000",
+  "cruces": {
+    "X2": { "ok": true, "ev1": "Ramón cree que los datos están bien [E].", "ev2": "Rosa cuenta un corte de exportación, otro ordenador, precios retocados, fichas borradas y una referencia repetida [E]." },
+    "X7": { "ok": true, "ev1": "«Antonio se lo sabe» [E].", "ev2": "Solo 2 de 5 resuelven lo técnico y uno se jubila en 2028 [E]." },
+    "X8": { "ok": true, "ev1": "El mostrador es lo más visible del día a día.", "ev2": "La única pérdida en euros declarada está en las compras." }
+  },
+  "fortalezasNotas": "Programa único desde 2009 con dos años exportables.\nCartera estable de unos 90 profesionales.",
+  "oportunidades": "Descuento del 5 % por pedir antes del 15 de marzo.",
+  "amenazas": "Jubilación de Antonio en 2028.\nCompetencia en Mérida cuando falta stock.",
+  "noTocar": "Evaluar con IA a los empleados del mostrador (alto riesgo en el Reglamento europeo de IA).\nPasar los WhatsApp a una IA (datos personales).\nMontar el asistente del mostrador antes de ordenar las fichas.",
+  "orden": { "manual": ["T5", "T1", "T2", "T3", "T4", "T6"], "motivos": { "T4": "Tiene 645 h/año medidas y una jubilación con fecha (2028): va antes que el aviso de clientes, que no tiene ninguna cifra." } }
+}
