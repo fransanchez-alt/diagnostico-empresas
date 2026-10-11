@@ -1,10 +1,11 @@
 // Herramienta de diagnóstico A → B · interfaz
 import * as L from './logic.js';
 import * as S from './store.js';
-import { generarFormulario, leerRespuestas, preguntasFormulario, esc } from './formulario.js';
+import { generarFormulario, generarFormularioEquipo, PREGUNTAS_EQUIPO, REGULARIDAD, leerRespuestas, preguntasFormulario, esc } from './formulario.js';
 import { radarSVG, leyendaRadar } from './radar.js';
 import { generarKit, nombreKit, PLANTILLAS } from './kit.js';
 import { crearZip } from './zip.js';
+import { crearXlsx, hojasSimulador } from './xlsx.js';
 
 const PASOS = [
   { id: 'motivo', n: 1, titulo: 'Motivo de consulta' },
@@ -87,6 +88,7 @@ function aviso(txt) {
 }
 const val = (path, def = '') => { const v = caso ? getPath(caso, path) : undefined; return v == null ? def : v; };
 const enJuego = () => L.areasEnJuego(caso, C.motivos, C.areas);
+const op = () => L.opciones(caso);
 const areaNombre = (id) => (C.areas.find((a) => a.id === id) || {}).nombre || '—';
 const nuevoId = (pref) => `${pref}${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
 
@@ -123,8 +125,8 @@ function ayuda(paso) {
     <p><button type="button" class="enlace" data-action="toggle-ayudas">Ocultar todas las ayudas</button></p></details>`;
 }
 
-function origenSel(path) {
-  const v = val(path, 'E');
+function origenSel(path, def = 'E') {
+  const v = val(path, def) || def;
   return `<select class="origen" data-bind="${path}" data-rr="1" aria-label="Origen del dato">
     ${[['E', '[E] empresa'], ['C', '[C] consultor'], ['S', '[S] supuesto']].map(([k, t]) => `<option value="${k}"${k === v ? ' selected' : ''}>${t}</option>`).join('')}</select>`;
 }
@@ -239,6 +241,23 @@ function vMotivo() {
   </div>
 
   <div class="tarjeta">
+    <h2>Lo que cuenta el equipo</h2>
+    <p>El dueño cuenta lo que cree que pasa; el equipo, lo que pasa de verdad. Tres preguntas, anónimas, para quien hace el trabajo.</p>
+    <div class="botonera">
+      <button class="btn primario" data-action="generar-formulario-equipo">Descargar cuestionario para el equipo</button>
+      <button class="btn" data-action="importar-respuestas">Importar sus respuestas</button>
+      <button class="btn" data-action="add-equipo">+ Apuntar a mano</button>
+    </div>
+    ${(caso.equipo || []).map((e, i) => `<div class="fila-inv">
+      <div class="rejilla-2">${campo({ etiqueta: 'Puesto o sección (sin nombre)', path: `equipo.${i}.puesto` })}
+      ${selector({ etiqueta: `E3 · ${PREGUNTAS_EQUIPO[2].texto}`, path: `equipo.${i}.E3`, opciones: [['', '—']].concat(PREGUNTAS_EQUIPO[2].opciones) })}</div>
+      ${campo({ etiqueta: `E1 · ${PREGUNTAS_EQUIPO[0].texto}`, path: `equipo.${i}.E1`, tipo: 'area', filas: 2 })}
+      ${campo({ etiqueta: `E2 · ${PREGUNTAS_EQUIPO[1].texto}`, path: `equipo.${i}.E2`, tipo: 'area', filas: 2 })}
+      <button class="btn peq peligro" data-action="del-equipo" data-i="${i}">Quitar respuesta</button>
+    </div>`).join('') || '<p class="mudo">Todavía no hay respuestas del equipo.</p>'}
+  </div>
+
+  <div class="tarjeta">
     <h2>Canvas de modelo de negocio</h2>
     <p class="mudo">Una línea por bloque. Sirve para ver dónde gana y dónde pierde dinero la empresa.</p>
     <div class="rejilla-3">${C.base.canvas.map((b) => campo({ etiqueta: b.nombre, path: `canvas.${b.id}`, ph: b.ayuda })).join('')}</div>
@@ -292,11 +311,17 @@ function tarjetaArea(a) {
 
 function vAnalitica() {
   const sugeridas = ['M4', 'M5'].map((k) => val(`respuestas.${k}`)).filter(Boolean);
+  const delEquipo = (caso.equipo || []).filter((e) => e.E1);
   return `
+  <div class="tarjeta">
+    <h2>Cómo se cuentan las horas</h2>
+    ${campo({ etiqueta: 'Semanas de trabajo al año', path: 'semanasAnio', tipo: 'num', rr: true, ph: '45', ayuda: 'Por defecto 45: las 52 del año menos unas 4 de vacaciones y unas 3 de festivos. Cámbialo si la empresa cierra en agosto o trabaja por temporadas.' })}
+  </div>
   ${(caso.tarjetas || []).map((t, i) => tarjetaProblema(t, i)).join('')}
   <div class="botonera">
     <button class="btn primario" data-action="add-tarjeta">+ Añadir problema</button>
     ${sugeridas.length ? `<button class="btn" data-action="tarjeta-desde-m5">Crear desde lo que dijo el empresario (M5)</button>` : ''}
+    ${delEquipo.length ? `<button class="btn" data-action="tarjetas-desde-equipo">Crear desde lo que dijo el equipo (${delEquipo.length})</button>` : ''}
   </div>
   <div class="tarjeta">
     <h2>Inventario de datos</h2>
@@ -317,12 +342,12 @@ function vAnalitica() {
 
 function tarjetaProblema(t, i) {
   const p = `tarjetas.${i}`;
-  const coste = L.costeTarjeta(t);
+  const coste = L.costeTarjeta(t, op());
   const areasOp = [['', 'Elige área']].concat(C.areas.map((a) => [a.id, a.nombre]));
   const patOp = [['', 'Sin patrón']].concat(C.patrones.map((x) => [x.id, `${x.id} · ${x.nombre}`]));
   const formOp = [['', 'Elige fórmula']].concat(C.formulas.map((f) => [f.id, `${f.id} · ${f.nombre}`]));
   return `<article class="tarjeta problema">
-    <div class="cab-tarjeta"><span class="chip">${esc(t.id)}</span><strong class="coste ${coste.valor !== null ? 'con' : ''}">${esc(L.etiquetaCoste(t))}</strong></div>
+    <div class="cab-tarjeta"><span class="chip">${esc(t.id)}</span><strong class="coste ${coste.valor !== null ? 'con' : ''}">${esc(L.etiquetaCoste(t, op()))}</strong></div>
     ${campo({ etiqueta: 'Problema, con palabras de la empresa', path: `${p}.titulo`, rr: true })}
     <div class="rejilla-3">
       ${selector({ etiqueta: 'Área', path: `${p}.area`, opciones: areasOp })}
@@ -332,9 +357,10 @@ function tarjetaProblema(t, i) {
     <h3>Coste <span class="mudo">(la cuenta se hace sola)</span></h3>
     ${(t.calculos || []).map((c, k) => {
       const f = C.formulas.find((x) => x.id === c.formula);
-      const r = L.calcular(c);
+      const r = L.calcular(c, op());
       return `<div class="calculo">
         <div class="cab-calc">${selector({ etiqueta: 'Fórmula', path: `${p}.calculos.${k}.formula`, opciones: formOp })}<button class="btn peq" data-action="del-calculo" data-i="${i}" data-k="${k}" aria-label="Quitar cálculo">✕</button></div>
+        ${c.formula === 'F1' ? selector({ etiqueta: '¿Qué se gana si se resuelve?', path: `${p}.calculos.${k}.tipo`, opciones: [['tiempo', 'Tiempo del equipo: horas de la plantilla para otras tareas'], ['duro', 'Dinero: horas extra, subcontrata o contratación que se evita']], ayuda: `Lo normal es «tiempo del equipo»: el sueldo se sigue pagando. Solo es dinero si de verdad deja de pagarse algo. ${g('Tiempo del equipo', '¿Por qué?')}` }) : ''}
         ${f ? `<p class="mudo">${esc(f.explica)}</p><div class="campos-calc">${f.campos.map((cp) => `<div class="campo-calc"><label class="et" for="c-${i}-${k}-${cp.id}">${esc(cp.nombre)}</label>
           <div class="par"><input id="c-${i}-${k}-${cp.id}" type="text" inputmode="decimal" data-bind="${p}.calculos.${k}.campos.${cp.id}.v" data-rr="1" value="${esc(val(`${p}.calculos.${k}.campos.${cp.id}.v`))}" placeholder="—">${origenSel(`${p}.calculos.${k}.campos.${cp.id}.o`)}</div>
           <span class="ay">${esc(cp.ayuda)}</span></div>`).join('')}</div>
@@ -347,6 +373,11 @@ function tarjetaProblema(t, i) {
       ${campo({ etiqueta: 'Datos: qué hay y en qué estado', path: `${p}.datos`, tipo: 'area', filas: 2 })}
       ${campo({ etiqueta: 'Solución: la idea, sin tecnología todavía', path: `${p}.solucion`, tipo: 'area', filas: 2 })}
     </div>
+    <div class="rejilla-3">
+      ${selector({ etiqueta: '¿Se hace siempre igual?', path: `${p}.regularidad`, opciones: [['', '—']].concat(PREGUNTAS_EQUIPO[2].opciones), ayuda: 'Importa para automatizar: si cada vez es distinto, primero hay que fijar el proceso.' })}
+      ${selector({ etiqueta: 'Esfuerzo para resolverlo', path: `${p}.esfuerzo`, opciones: [['', '—'], ['bajo', 'Bajo: días'], ['medio', 'Medio: semanas'], ['alto', 'Alto: meses']] })}
+    </div>
+    ${(() => { const v = L.viabilidadEfectiva(t); return v.motivo ? `<p class="aviso-suave">Viabilidad parcial: ${esc(v.motivo)}.</p>` : ''; })()}
     <div class="rejilla-3">
       ${selector({ etiqueta: 'Patrón de solución', path: `${p}.patron`, opciones: patOp })}
       ${selector({ etiqueta: `${'¿Es una urgencia?'}`, path: `${p}.urgencia`, opciones: [['', 'No']].concat(C.base.urgencias.map((u) => [u, u])) })}
@@ -364,8 +395,8 @@ function vDiagnostico() {
   const umb = L.umbralMatriz(caso);
   const ts = caso.tarjetas || [];
   const celdas = { primero: [], cifras: [], noves: [], aparcado: [], sindatos: [] };
-  ts.forEach((t) => { const q = L.cuadrante(t, umb.valor, ts); celdas[q.clave].push({ t, q }); });
-  const chips = (arr) => arr.map(({ t, q }) => `<div class="chip-t"><strong>${esc(t.titulo || t.id)}</strong><span>${esc(L.etiquetaCoste(t))} · dolor ${esc(t.dolor || '—')}</span><em>${esc(q.frase)}</em></div>`).join('') || '<span class="mudo">—</span>';
+  ts.forEach((t) => { const q = L.cuadrante(t, umb.valor, ts, op()); celdas[q.clave].push({ t, q }); });
+  const chips = (arr) => arr.map(({ t, q }) => `<div class="chip-t${q.soloTiempo ? ' tiempo' : ''}"><strong>${esc(t.titulo || t.id)}${q.soloTiempo ? ' <span class="chip">⏱ tiempo del equipo</span>' : ''}</strong><span>${esc(L.etiquetaCoste(t, op()))} · dolor ${esc(t.dolor || '—')}</span><em>${esc(q.frase)}</em></div>`).join('') || '<span class="mudo">—</span>';
   const d = L.dafo(caso, juego, C.areas, C.patrones);
   const lista = (arr) => arr.length ? `<ul>${arr.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : '<p class="mudo">—</p>';
   const sugerNoTocar = (caso.motivos || []).map((id) => (C.motivos.find((m) => m.id === id) || {}).trampa).filter(Boolean);
@@ -398,7 +429,7 @@ function vDiagnostico() {
 
   <div class="tarjeta">
     <h2>Lo que duele frente a lo que cuesta</h2>
-    <p class="mudo">El orden lo deciden los euros; lo que duele sirve para elegir el primer quick win y para saber cómo contarlo.</p>
+    <p class="mudo">El orden lo deciden los euros; lo que duele sirve para elegir el primer quick win y para saber cómo contarlo. Las tarjetas marcadas con ⏱ son tiempo del equipo pasado a euros (${g('Coste de oportunidad', 'coste de oportunidad')}), no dinero que deja de pagarse.</p>
     ${campo({ etiqueta: `Por encima de cuántos €/año diríamos que «cuesta mucho» (ahora: ${umb.valor !== null ? L.fmt(umb.valor) + ' €, ' + umb.origen : 'sin calcular'})`, path: 'umbralManual', tipo: 'num', rr: true, ph: 'Vacío = automático' })}
     <div class="matriz">
       <div class="eje-y">Duele mucho</div>
@@ -418,7 +449,8 @@ function vDiagnostico() {
     ${C.base.cruces.map((x) => {
       const on = val(`cruces.${x.id}.ok`) === true;
       return `<div class="cruce${on ? ' on' : ''}"><label class="interruptor"><input type="checkbox" data-bind="cruces.${x.id}.ok" data-rr="1"${on ? ' checked' : ''}> <strong>${esc(x.nombre)}</strong></label>
-        ${on ? `<div class="rejilla-2">${campo({ etiqueta: esc(x.f1), path: `cruces.${x.id}.ev1` })}${campo({ etiqueta: esc(x.f2), path: `cruces.${x.id}.ev2` })}</div>` : `<span class="mudo">${esc(x.f1)} · frente a · ${esc(x.f2)}</span>`}</div>`;
+        ${on ? `<div class="rejilla-2">${campo({ etiqueta: esc(x.f1), path: `cruces.${x.id}.ev1` })}${campo({ etiqueta: esc(x.f2), path: `cruces.${x.id}.ev2` })}</div>` : `<span class="mudo">${esc(x.f1)} · frente a · ${esc(x.f2)}</span>`}
+        ${x.id === 'X2' && (caso.equipo || []).length ? `<p class="auto">Lo que cuenta el equipo: ${caso.equipo.map((e) => `${e.puesto ? `<strong>${esc(e.puesto)}:</strong> ` : ''}${esc([e.E1, e.E2].filter(Boolean).join(' · '))}${e.E3 ? ` (${esc(REGULARIDAD[e.E3] || e.E3)})` : ''}`).join('<br>')}</p>` : ''}</div>`;
     }).join('')}
   </div>
 
@@ -453,14 +485,26 @@ function vTratamiento() {
     <ol class="orden">${o.items.map((it, k) => {
       const t = caso.tarjetas.find((x) => x.id === it.id);
       return `<li class="esc-${it.escalon}"><div class="pos">${it.posicion}</div><div class="cuerpo">
-        <div><span class="chip esc">${ESC[it.escalon]}</span> <strong>${esc(it.titulo || it.id)}</strong> <span class="mudo">· ${esc(L.etiquetaCoste(t))}</span></div>
+        <div><span class="chip esc">${ESC[it.escalon]}</span> <strong>${esc(it.titulo || it.id)}</strong> <span class="mudo">· ${esc(L.etiquetaCoste(t, op()))}</span></div>
         <p>${esc(it.porque)}</p>${it.ajustada ? `<p class="ajuste">Ajustado por el consultor: ${esc(it.motivoAjuste)}</p>` : ''}</div>
         <div class="mover"><button class="btn peq" data-action="mover" data-id="${esc(it.id)}" data-dir="-1"${k === 0 ? ' disabled' : ''} aria-label="Subir">↑</button><button class="btn peq" data-action="mover" data-id="${esc(it.id)}" data-dir="1"${k === o.items.length - 1 ? ' disabled' : ''} aria-label="Bajar">↓</button></div></li>`;
     }).join('')}</ol>
     ${hayManual ? '<button class="btn peq" data-action="reset-orden">Volver al orden propuesto</button>' : ''}
     ${o.noViables.length ? `<h3>No viables ahora</h3><ul>${o.noViables.map((x) => `<li>${esc(x.titulo)}</li>`).join('')}</ul>` : ''}
   </div>
+  ${hojaDeRuta(true)}
   ${o.items.map((it) => fichaTratamiento(caso.tarjetas.findIndex((x) => x.id === it.id), it)).join('')}`;
+}
+
+function hojaDeRuta(editable) {
+  const h = L.horizontes(caso, C.patrones);
+  return `<div class="tarjeta">
+    <h2>Hoja de ruta</h2>
+    ${editable ? '<p class="mudo">Sale del orden: primero lo urgente y una victoria rápida, luego las bases y lo que más retorno da. Puedes mover un problema de horizonte.</p>' : ''}
+    <div class="horizontes">${[1, 2, 3].map((k) => `<div class="horizonte h${k}"><h3>${L.HORIZONTES[k].titulo}</h3><p class="mudo">${L.HORIZONTES[k].texto}</p>
+      ${h[k].map((it) => { const i = caso.tarjetas.findIndex((x) => x.id === it.id); return `<div class="chip-t"><strong>${esc(it.titulo || it.id)}</strong>${it.manual ? '<span>movido por el consultor</span>' : ''}
+        ${editable ? selector({ etiqueta: 'Horizonte', path: `tarjetas.${i}.horizonte`, opciones: [['', 'Automático'], ['1', 'Mes 1'], ['2', 'Meses 2-3'], ['3', 'Después']] }) : ''}</div>`; }).join('') || '<span class="mudo">—</span>'}</div>`).join('')}</div>
+  </div>`;
 }
 
 function fichaTratamiento(i, it) {
@@ -472,21 +516,48 @@ function fichaTratamiento(i, it) {
     const pr = C.patrones.find((x) => x.id === r);
     return `<li>${esc(pr ? pr.nombre : r)}: ${base ? `cubierto por «${esc(base.titulo)}»` : '<strong>falta en el plan</strong>'}</li>`;
   }) : [];
-  const faltan = L.costeTarjeta(t).partes.flatMap((x) => x.faltan);
+  const faltan = L.costeTarjeta(t, op()).partes.flatMap((x) => x.faltan);
   const conKit = t.destino === 'construye' || t.destino === 'asiste';
   return `<article class="tarjeta ficha">
     <h2>${it.posicion}. ${esc(t.titulo || t.id)}</h2>
-    <p class="mudo">${esc(areaNombre(t.area))} · ${esc(L.etiquetaCoste(t))} · dolor ${esc(t.dolor || '—')}</p>
+    <p class="mudo">${esc(areaNombre(t.area))} · ${esc(L.etiquetaCoste(t, op()))} · dolor ${esc(t.dolor || '—')}</p>
     <div class="rejilla-2">
       ${selector({ etiqueta: 'Destino', path: `${p}.destino`, opciones: [['', 'Elige destino']].concat(C.base.destinos.map((d) => [d.id, d.nombre])), ayuda: esc((C.base.destinos.find((d) => d.id === t.destino) || {}).texto || '') })}
       ${selector({ etiqueta: 'Patrón de solución', path: `${p}.patron`, opciones: [['', 'Sin patrón']].concat(C.patrones.map((x) => [x.id, `${x.id} · ${x.nombre}`])), ayuda: pat ? esc(pat.verificacion) : '' })}
     </div>
+    ${ayudaDestino(t, p)}
+    ${bloqueRetorno(t, p)}
     ${pat ? `<p><strong>Requisitos previos:</strong> ${esc(pat.previos)}</p>${prev.length ? `<ul>${prev.join('')}</ul>` : ''}` : ''}
     <p><strong>Restricciones:</strong> ${esc([val('respuestas.M8') && `presupuesto: ${val('respuestas.M8')}`, val('respuestas.M9') && `no se toca: ${val('respuestas.M9')}`].filter(Boolean).join(' · ') || 'sin declarar')}</p>
     ${faltan.length ? `<p><strong>Preguntas abiertas:</strong> ${esc(faltan.join('; '))}</p>` : ''}
     ${campo({ etiqueta: 'Primer paso concreto', path: `${p}.primerPaso` })}
     ${conKit ? `<button class="btn primario" data-action="descargar-kit" data-i="${i}">Descargar kit del arnés${t.destino === 'asiste' ? ' (ligero)' : ''}</button>` : t.destino === 'sinagente' ? '<p class="mudo">Sin kit: es un cambio de proceso, una herramienta existente o formación.</p>' : ''}
   </article>`;
+}
+
+function ayudaDestino(t, p) {
+  const s = L.sugerirDestino(t);
+  const nombreDest = (id) => (C.base.destinos.find((d) => d.id === id) || {}).nombre || id;
+  return `<details class="ayuda-destino"${t.entrada ? ' open' : ''}><summary>Ayuda para elegir el destino</summary>
+    <div class="rejilla-2">
+      ${selector({ etiqueta: '¿Cómo es lo que entra en el proceso?', path: `${p}.entrada`, opciones: [['', '—'], ['ordenada', 'Datos ordenados (tablas, programa, Excel)'], ['documentos', 'Documentos o texto libre (PDF, correos, fotos)'], ['criterio', 'Depende del criterio de una persona']] })}
+      ${selector({ etiqueta: '¿Se hace siempre igual?', path: `${p}.regularidad`, opciones: [['', '—']].concat(PREGUNTAS_EQUIPO[2].opciones) })}
+    </div>
+    ${s ? `<p class="auto"><strong>Sugerencia: ${esc(nombreDest(s.destino))}${s.patrones ? ` (${s.patrones.join(' o ')})` : ''}.</strong> ${esc(s.texto)}
+      ${t.destino !== s.destino ? `<button class="btn peq" data-action="usar-destino" data-i="${p.split('.')[1]}" data-destino="${s.destino}">Usar esta sugerencia</button>` : ''}</p>` : ''}
+  </details>`;
+}
+
+function bloqueRetorno(t, p) {
+  const r = L.retorno(t, op());
+  return `<h3>Retorno esperado</h3>
+    <div class="rejilla-3">
+      <div class="campo-calc"><label class="et" for="res-${t.id}">% del problema que resuelve</label><div class="par"><input id="res-${t.id}" type="text" inputmode="decimal" data-bind="${p}.resuelve" data-rr="1" value="${esc(t.resuelve || '')}" placeholder="—">${origenSel(`${p}.resuelveO`, 'S')}</div><span class="ay">Casi siempre es un supuesto [S]. Con IA nunca es 100 %: siempre hay revisión.</span></div>
+      ${campo({ etiqueta: 'Inversión inicial (€)', path: `${p}.inversion`, tipo: 'num', rr: true })}
+      ${campo({ etiqueta: 'Coste al mes (€)', path: `${p}.costeMes`, tipo: 'num', rr: true, ayuda: 'Licencias, mantenimiento…' })}
+    </div>
+    <div class="resultado${r.ahorro !== null ? '' : ' hipo'}"><code>${esc(r.operacion)}</code>${r.notas.map((n) => `<span class="nota">${esc(n)}</span>`).join('')}
+      ${val('respuestas.M8') ? `<span class="nota">Presupuesto declarado (M8): ${esc(val('respuestas.M8'))}</span>` : ''}</div>`;
 }
 
 // ---------- Paso 6 · Informe ----------
@@ -498,20 +569,26 @@ function vInforme() {
   const umb = L.umbralMatriz(caso);
   const top = o.items.slice(0, 3).map((it) => {
     const t = caso.tarjetas.find((x) => x.id === it.id);
-    return `<li><strong>${esc(t.titulo)}</strong> · ${esc(L.etiquetaCoste(t))}<br><span class="mudo">${esc(it.porque)} ${esc(L.cuadrante(t, umb.valor, caso.tarjetas).frase)}</span></li>`;
+    return `<li><strong>${esc(t.titulo)}</strong> · ${esc(L.etiquetaCoste(t, op()))}<br><span class="mudo">${esc(it.porque)} ${esc(L.cuadrante(t, umb.valor, caso.tarjetas, op()).frase)}</span></li>`;
   }).join('');
   const d = L.dafo(caso, juego, C.areas, C.patrones);
   const lista = (arr) => arr.length ? `<ul>${arr.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : '<p class="mudo">—</p>';
   const noTocar = String(caso.noTocar || '').split('\n').filter((x) => x.trim());
+  const tit = L.titular(caso);
   return `
   <div class="botonera no-print">
     <button class="btn primario" data-action="imprimir">Imprimir / Guardar como PDF</button>
+    <button class="btn" data-action="descargar-excel">Descargar Excel de cálculos</button>
     <button class="btn" data-action="exportar-caso" data-id="${esc(caso.id)}">Exportar el caso</button>
   </div>
   <article class="informe">
     <section class="pagina">
       <header class="inf-cab"><h2>${esc(caso.empresa.nombre)}</h2><p>${esc(caso.empresa.sector || '')} · Diagnóstico del ${new Date().toLocaleDateString('es-ES')}</p></header>
       <p class="objetivo"><strong>Objetivo:</strong> ${esc(caso.objetivoGeneral || '—')}</p>
+      <div class="titular">
+        <div><span class="cifra">${tit.euros ? L.fmt(tit.euros) + ' €/año' : '—'}</span><span>Lo que cuestan los problemas en dinero${tit.euros ? '' : ' (sin cifra todavía)'}${tit.cotaAlta ? '. Incluye ventas perdidas sin descontar el margen: el coste real es menor' : ''}${tit.eurosSupuestos ? `. Aparte, ${L.fmt(tit.eurosSupuestos)} € más que dependen de supuestos [S]` : ''}.</span></div>
+        <div><span class="cifra">${tit.horas ? L.fmt(tit.horas) + ' h/año' : '—'}</span><span>Tiempo del equipo que se va en ellos${tit.eurosTiempo ? ` (≈ ${L.fmt(tit.eurosTiempo)} € de coste de oportunidad)` : ''}. No se suma al dinero.</span></div>
+      </div>
       <div class="inf-2">
         <div class="radar-caja">${radarSVG(C.areas, cl.filas)}${leyendaRadar()}</div>
         <div><h3>Qué haríamos primero</h3><ol>${top || '<li class="mudo">—</li>'}</ol>
@@ -519,7 +596,8 @@ function vInforme() {
           <h3>Debilidades</h3><p>${cl.debilidades.map(areaNombre).map(esc).join(' · ') || '—'}</p>
           <h3>Lo que no conviene tocar todavía</h3>${lista(noTocar)}</div>
       </div>
-      <p class="nota-met">No se ha accedido a ningún sistema de la empresa. Las cifras salen de lo que declara la empresa [E], de lo que comprueba el consultor [C] o de supuestos [S], con la operación a la vista en el informe completo.</p>
+      ${hojaDeRuta(false)}
+      <p class="nota-met">[E] lo declara la empresa · [C] lo ha comprobado el consultor · [S] es una hipótesis prudente. Los ahorros son estimaciones y se comprueban con pruebas antes de construir nada. El cuestionario es solo la entrada: los niveles y las cifras los ha validado el consultor con evidencias. No se ha accedido a ningún sistema de la empresa.</p>
     </section>
     <section class="pagina">
       <h2>Informe completo</h2>
@@ -528,8 +606,11 @@ function vInforme() {
       ${cl.filas.map((f) => `<tr><td>${esc(areaNombre(f.id))}</td><td>${esc(f.nivel ?? f.estado)}</td><td>${esc(f.objetivo ?? '—')}</td><td>${esc(f.importancia || '—')}</td><td>${esc(val(`areas.${f.id}.evidencia`))}</td></tr>`).join('')}
       </tbody></table>
       <h3>Problemas y su coste</h3>
-      ${(caso.tarjetas || []).map((t) => `<div class="inf-t"><strong>${esc(t.titulo)}</strong> · ${esc(areaNombre(t.area))} · dolor ${esc(t.dolor || '—')} · ${esc(L.etiquetaCoste(t))}
-        ${L.costeTarjeta(t).partes.map((x) => `<code>${esc(x.operacion)}</code>`).join('')}</div>`).join('') || '<p class="mudo">—</p>'}
+      ${(caso.tarjetas || []).map((t) => `<div class="inf-t"><strong>${esc(t.titulo)}</strong> · ${esc(areaNombre(t.area))} · dolor ${esc(t.dolor || '—')} · ${esc(L.etiquetaCoste(t, op()))}
+        ${L.costeTarjeta(t, op()).partes.map((x) => `<code>${esc(x.operacion)}</code>`).join('')}</div>`).join('') || '<p class="mudo">—</p>'}
+      <h3>Retorno esperado de las soluciones</h3>
+      ${lista((caso.tarjetas || []).filter((t) => t.resuelve || t.inversion).map((t) => `${t.titulo}: ${L.retorno(t, op()).operacion}`))}
+      ${(caso.equipo || []).length ? `<h3>Lo que cuenta el equipo</h3>${lista(caso.equipo.map((e) => `${e.puesto ? e.puesto + ': ' : ''}${[e.E1, e.E2].filter(Boolean).join(' · ')}${e.E3 ? ` (${REGULARIDAD[e.E3] || e.E3})` : ''}`))}` : ''}
       <h3>Orden de prioridad</h3>
       <ol>${o.items.map((it) => `<li><strong>${esc(it.titulo)}</strong>: ${esc(it.porque)}${it.ajustada ? ` Ajustado: ${esc(it.motivoAjuste)}` : ''}</li>`).join('')}</ol>
       <h3>Cruces</h3>
@@ -590,6 +671,12 @@ async function alPulsar(e) {
     'exportar-caso': () => exportarCaso(b.dataset.id),
     'borrar-caso': () => borrarCaso(b.dataset.id),
     'generar-formulario': descargarFormulario,
+    'generar-formulario-equipo': descargarFormularioEquipo,
+    'add-equipo': () => { (caso.equipo || (caso.equipo = [])).push({ puesto: '', E1: '', E2: '', E3: '' }); cambio(); },
+    'del-equipo': () => { caso.equipo.splice(+b.dataset.i, 1); cambio(); },
+    'tarjetas-desde-equipo': tarjetasDesdeEquipo,
+    'usar-destino': () => { caso.tarjetas[+b.dataset.i].destino = b.dataset.destino; cambio(); },
+    'descargar-excel': descargarExcel,
     'importar-respuestas': importarRespuestas,
     'add-tarjeta': () => addTarjeta(''),
     'tarjeta-desde-m5': () => addTarjeta(val('respuestas.M5'), val('respuestas.M6')),
@@ -670,8 +757,28 @@ function descargarFormulario() {
   dialogo('Cuestionario descargado', `<p>Mándale este archivo al empresario por correo o WhatsApp. Lo abre en su móvil o su ordenador, contesta, y pulsa «Copiar mis respuestas» o «Descargar archivo».</p><p>Cuando te lo devuelva, usa «Importar sus respuestas».</p>`);
 }
 
+function descargarFormularioEquipo() {
+  descargar(`cuestionario-equipo-${nombreKit(caso, { titulo: '' }).replace(/^kit-|-$/g, '')}.html`, generarFormularioEquipo(caso), 'text/html');
+  dialogo('Cuestionario del equipo descargado', `<p>Es el mismo archivo para todas las personas del equipo: que cada una lo abra en su móvil, conteste y te envíe sus respuestas. Es anónimo.</p><p>Después usa «Importar sus respuestas», una vez por persona.</p>`);
+}
+
+function descargarExcel() {
+  descargar(`calculos-${nombreKit(caso, { titulo: '' }).replace(/^kit-|-$/g, '')}.xlsx`, new Blob([crearXlsx(hojasSimulador(caso))], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+}
+
+function tarjetasDesdeEquipo() {
+  const ts = caso.tarjetas || (caso.tarjetas = []);
+  let n = 0;
+  (caso.equipo || []).filter((e) => e.E1 && !ts.some((t) => t.titulo === e.E1)).forEach((e) => {
+    addTarjeta(e.E1, '', { datos: e.E2 ? `Lo que cuenta el equipo${e.puesto ? ` (${e.puesto})` : ''}: ${e.E2}` : '', regularidad: e.E3 || '' }, false);
+    n++;
+  });
+  cambio();
+  aviso(n ? `${n} problema${n > 1 ? 's' : ''} creado${n > 1 ? 's' : ''}` : 'Ya estaban creados');
+}
+
 function importarRespuestas() {
-  dialogo('Importar las respuestas del empresario', `
+  dialogo('Importar respuestas del empresario o del equipo', `
     <p>Pega aquí el texto que te ha enviado o elige el archivo.</p>
     <textarea id="txt-respuestas" rows="6" placeholder='{"tipo":"respuestas-empresario", …}'></textarea>
     <div class="botonera"><button class="btn primario" id="btn-aplicar">Importar</button>
@@ -686,6 +793,14 @@ function aplicarRespuestas(texto) {
       return;
     }
     const d = leerRespuestas(texto);
+    if (d.tipo === 'respuestas-equipo') {
+      const r = d.respuestas || {};
+      (caso.equipo || (caso.equipo = [])).push({ puesto: r.puesto || '', E1: r.E1 || '', E2: r.E2 || '', E3: r.E3 || '', fecha: d.fecha || '' });
+      document.getElementById('dialogo').close();
+      cambio();
+      aviso('Respuesta del equipo importada');
+      return;
+    }
     caso.respuestas = { ...(caso.respuestas || {}), ...d.respuestas };
     Object.entries(d.autoniveles || {}).forEach(([id, n]) => setPath(caso, `areas.${id}.autonivel`, n));
     caso.origenRespuestas = 'empresario';
@@ -696,12 +811,12 @@ function aplicarRespuestas(texto) {
   } catch (err) { alert(err.message); }
 }
 
-function addTarjeta(titulo, dolor) {
+function addTarjeta(titulo, dolor, extra = {}, repintarYa = true) {
   const ts = caso.tarjetas || (caso.tarjetas = []);
   let n = ts.length + 1;
   while (ts.some((t) => t.id === `T${n}`)) n++;
-  ts.push({ id: `T${n}`, titulo: titulo || '', area: '', dolor: dolor ? String(L.leerCantidad(dolor).v || '') : '', calculos: [], datos: '', solucion: '', patron: '', destino: '', urgencia: '', baseDe: [], viabilidad: 'viable', quickWin: false, abordar: true, primerPaso: '' });
-  cambio();
+  ts.push({ id: `T${n}`, titulo: titulo || '', area: '', dolor: dolor ? String(L.leerCantidad(dolor).v || '') : '', calculos: [], datos: '', solucion: '', patron: '', destino: '', urgencia: '', baseDe: [], viabilidad: 'viable', quickWin: false, abordar: true, primerPaso: '', esfuerzo: '', regularidad: '', entrada: '', resuelve: '', resuelveO: 'S', inversion: '', costeMes: '', horizonte: '', ...extra });
+  if (repintarYa) cambio();
 }
 
 function mover(id, dir) {
