@@ -224,3 +224,20 @@ dialog::backdrop { background: rgba(20, 30, 50, .45); }
   .radar-caja { max-width: 320px; }
   code { background: none; padding: 0; }
 }
+
+/* ---- v0.2: titular, hoja de ruta, tiempo del equipo ---- */
+.titular { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 10px 0 14px; }
+@media (min-width: 640px) { .titular { grid-template-columns: 1fr 1fr; } }
+.titular > div { background: #f8f9fb; border: 1px solid var(--linea); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.titular .cifra { font-size: 1.5rem; font-weight: 800; color: var(--acento); }
+.titular > div + div .cifra { color: var(--teal); }
+.horizontes { display: grid; grid-template-columns: 1fr; gap: 10px; }
+@media (min-width: 760px) { .horizontes { grid-template-columns: repeat(3, 1fr); } }
+.horizonte { border: 1px solid var(--linea); border-radius: 10px; padding: 10px; background: #fafafa; }
+.horizonte h3 { margin: 0; }
+.horizonte.h1 { border-top: 4px solid var(--rojo); }
+.horizonte.h2 { border-top: 4px solid var(--acento); }
+.horizonte.h3 { border-top: 4px solid var(--teal); }
+.horizonte .campo { margin: 4px 0 0; }
+.chip-t.tiempo { border-style: dashed; }
+.ayuda-destino { border: 1px dashed #c9ced8; border-radius: 10px; padding: 4px 12px; margin: 10px 0; }
