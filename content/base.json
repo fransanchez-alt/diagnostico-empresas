@@ -1,25 +1,88 @@
 {
   "preguntasEmpresario": [
-    {"id": "M1", "texto": "Nombre de la empresa y a qué os dedicáis, en una frase (la actividad real, no el epígrafe fiscal)."},
-    {"id": "M2", "texto": "¿Cuántas personas trabajáis y qué hace cada una, a grandes rasgos?"},
-    {"id": "M3", "texto": "¿Qué os gustaría conseguir en los próximos 12 meses? Dilo con tus palabras."},
-    {"id": "M4", "texto": "Las 3 tareas que más tiempo os quitan cada semana, con las horas aproximadas de cada una."},
-    {"id": "M5", "texto": "Si pudieras arreglar una sola cosa mañana, ¿cuál sería?"},
-    {"id": "M6", "texto": "¿Cuánto os molesta hoy ese problema, del 1 (poco) al 5 (muchísimo)?"},
-    {"id": "M7", "texto": "¿Cuánto cuesta, más o menos, una hora de trabajo de quien hace esas tareas? (si prefieres no decirlo, déjalo en blanco)"},
-    {"id": "M8", "texto": "¿Qué presupuesto tendrías para arreglarlo? ¿Y al mes para mantenerlo?"},
-    {"id": "M9", "texto": "¿Hay algo que no se pueda tocar? (un programa, una persona, una forma de trabajar)"}
+    {
+      "id": "M1",
+      "texto": "Nombre de la empresa y a qué os dedicáis, en una frase (la actividad real, no el epígrafe fiscal)."
+    },
+    {
+      "id": "M2",
+      "texto": "¿Cuántas personas trabajáis y qué hace cada una, a grandes rasgos?"
+    },
+    {
+      "id": "M3",
+      "texto": "¿Qué os gustaría conseguir en los próximos 12 meses? Dilo con tus palabras."
+    },
+    {
+      "id": "M4",
+      "texto": "Las 3 tareas que más tiempo os quitan cada semana, con las horas aproximadas de cada una."
+    },
+    {
+      "id": "M5",
+      "texto": "Si pudieras arreglar una sola cosa mañana, ¿cuál sería?"
+    },
+    {
+      "id": "M6",
+      "texto": "¿Cuánto os molesta hoy ese problema, del 1 (poco) al 5 (muchísimo)?"
+    },
+    {
+      "id": "M7",
+      "texto": "¿Cuánto cuesta, más o menos, una hora de trabajo de quien hace esas tareas? (si prefieres no decirlo, déjalo en blanco)"
+    },
+    {
+      "id": "M8",
+      "texto": "¿Qué presupuesto tendrías para arreglarlo? ¿Y al mes para mantenerlo?"
+    },
+    {
+      "id": "M9",
+      "texto": "¿Hay algo que no se pueda tocar? (un programa, una persona, una forma de trabajar)"
+    }
   ],
   "canvas": [
-    {"id": "socios", "nombre": "Socios clave", "ayuda": "Proveedores y aliados importantes"},
-    {"id": "actividades", "nombre": "Actividades clave", "ayuda": "Lo que la empresa tiene que hacer bien"},
-    {"id": "recursos", "nombre": "Recursos clave", "ayuda": "Personas, locales, programas, conocimiento"},
-    {"id": "propuesta", "nombre": "Propuesta de valor", "ayuda": "Por qué le compran a ella y no a otro"},
-    {"id": "relacion", "nombre": "Relación con clientes", "ayuda": "Cómo trata a sus clientes"},
-    {"id": "canales", "nombre": "Canales", "ayuda": "Por dónde llega y vende"},
-    {"id": "segmentos", "nombre": "Segmentos de clientes", "ayuda": "A quién vende"},
-    {"id": "costes", "nombre": "Estructura de costes", "ayuda": "En qué se va el dinero"},
-    {"id": "ingresos", "nombre": "Fuentes de ingresos", "ayuda": "De dónde entra el dinero"}
+    {
+      "id": "socios",
+      "nombre": "Socios clave",
+      "ayuda": "Proveedores y aliados importantes"
+    },
+    {
+      "id": "actividades",
+      "nombre": "Actividades clave",
+      "ayuda": "Lo que la empresa tiene que hacer bien"
+    },
+    {
+      "id": "recursos",
+      "nombre": "Recursos clave",
+      "ayuda": "Personas, locales, programas, conocimiento"
+    },
+    {
+      "id": "propuesta",
+      "nombre": "Propuesta de valor",
+      "ayuda": "Por qué le compran a ella y no a otro"
+    },
+    {
+      "id": "relacion",
+      "nombre": "Relación con clientes",
+      "ayuda": "Cómo trata a sus clientes"
+    },
+    {
+      "id": "canales",
+      "nombre": "Canales",
+      "ayuda": "Por dónde llega y vende"
+    },
+    {
+      "id": "segmentos",
+      "nombre": "Segmentos de clientes",
+      "ayuda": "A quién vende"
+    },
+    {
+      "id": "costes",
+      "nombre": "Estructura de costes",
+      "ayuda": "En qué se va el dinero"
+    },
+    {
+      "id": "ingresos",
+      "nombre": "Fuentes de ingresos",
+      "ayuda": "De dónde entra el dinero"
+    }
   ],
   "urgencias": [
     "Sin copias de los datos de los que vive el negocio",
@@ -28,19 +91,71 @@
     "Incumplimiento legal evidente"
   ],
   "cruces": [
-    {"id": "X1", "nombre": "El autodiagnóstico optimista", "f1": "Nivel que se pone la empresa", "f2": "Nivel que valida el consultor"},
-    {"id": "X2", "nombre": "Lo dicho frente al dato", "f1": "Lo que cree el dueño", "f2": "Lo que muestran los datos o cuentan los empleados"},
-    {"id": "X3", "nombre": "El objetivo equivocado", "f1": "Lo que pide (por ejemplo, clientes nuevos)", "f2": "Lo que pierde (clientes que no repiten, consultas sin atender)"},
-    {"id": "X4", "nombre": "La promesa imposible", "f1": "Lo que se promete al cliente", "f2": "Lo que el proceso puede cumplir"},
-    {"id": "X5", "nombre": "El canal que nadie atiende", "f1": "Canales que se anuncian", "f2": "Quién los atiende y cuándo"},
-    {"id": "X6", "nombre": "La herramienta fantasma", "f1": "Programas que se pagan", "f2": "Programas que se usan"},
-    {"id": "X7", "nombre": "El imprescindible", "f1": "«Aquí todos saben de todo»", "f2": "Tareas que solo sabe una persona"},
-    {"id": "X8", "nombre": "Dolor frente a euros", "f1": "Lo que más le molesta", "f2": "Lo que más le cuesta"}
+    {
+      "id": "X1",
+      "nombre": "El autodiagnóstico optimista",
+      "f1": "Nivel que se pone la empresa",
+      "f2": "Nivel que valida el consultor"
+    },
+    {
+      "id": "X2",
+      "nombre": "Lo dicho frente al dato",
+      "f1": "Lo que cree el dueño",
+      "f2": "Lo que muestran los datos o cuentan los empleados"
+    },
+    {
+      "id": "X3",
+      "nombre": "El objetivo equivocado",
+      "f1": "Lo que pide (por ejemplo, clientes nuevos)",
+      "f2": "Lo que pierde (clientes que no repiten, consultas sin atender)"
+    },
+    {
+      "id": "X4",
+      "nombre": "La promesa imposible",
+      "f1": "Lo que se promete al cliente",
+      "f2": "Lo que el proceso puede cumplir"
+    },
+    {
+      "id": "X5",
+      "nombre": "El canal que nadie atiende",
+      "f1": "Canales que se anuncian",
+      "f2": "Quién los atiende y cuándo"
+    },
+    {
+      "id": "X6",
+      "nombre": "La herramienta fantasma",
+      "f1": "Programas que se pagan",
+      "f2": "Programas que se usan"
+    },
+    {
+      "id": "X7",
+      "nombre": "El imprescindible",
+      "f1": "«Aquí todos saben de todo»",
+      "f2": "Tareas que solo sabe una persona"
+    },
+    {
+      "id": "X8",
+      "nombre": "Dolor frente a euros",
+      "f1": "Lo que más le molesta",
+      "f2": "Lo que más le cuesta"
+    }
   ],
   "destinos": [
-    {"id": "construye", "nombre": "OpenCode construye", "texto": "Hace falta software a medida. Se descarga el kit completo del arnés."},
-    {"id": "asiste", "nombre": "OpenCode asiste", "texto": "Un análisis puntual o un trabajo que hace una persona con ayuda del agente. Se descarga un kit ligero."},
-    {"id": "sinagente", "nombre": "No hace falta agente", "texto": "Cambiar un proceso, contratar una herramienta que ya existe, empezar a registrar datos o formar. Solo ficha con los pasos."}
+    {
+      "id": "construye",
+      "nombre": "OpenCode construye",
+      "texto": "Hace falta software a medida. Se descarga el kit completo del arnés."
+    },
+    {
+      "id": "asiste",
+      "nombre": "OpenCode asiste",
+      "texto": "Un análisis puntual o un trabajo que hace una persona con ayuda del agente. Se descarga un kit ligero."
+    },
+    {
+      "id": "sinagente",
+      "nombre": "No hace falta agente",
+      "texto": "Cambiar un proceso, contratar una herramienta que ya existe, empezar a registrar datos o formar. Solo ficha con los pasos."
+    }
   ],
   "glosario": {
     "Punto A": "Dónde está hoy la empresa en cada área.",
@@ -56,6 +171,9 @@
     "Base": "Un problema que hay que resolver antes porque otros dependen de él.",
     "Arnés": "Todo lo que se le da al agente de programación para que trabaje bien: reglas, contexto del cliente, memoria, comandos, skills y tests.",
     "Patrón de solución": "Una forma de resolver un tipo de problema que ya se ha visto funcionar.",
-    "Cruce": "Un hallazgo que sale de comparar dos fuentes que no cuadran, por ejemplo lo que cree el dueño frente a lo que muestran los datos."
+    "Cruce": "Un hallazgo que sale de comparar dos fuentes que no cuadran, por ejemplo lo que cree el dueño frente a lo que muestran los datos.",
+    "Tiempo del equipo": "Horas de la plantilla que se van en un problema. Si se resuelve, esas personas siguen cobrando lo mismo: lo que se gana es tiempo para otras tareas, no dinero. Solo cuenta como dinero si de verdad deja de pagarse algo (horas extra, una subcontrata, una contratación prevista).",
+    "Coste de oportunidad": "Lo que vale el tiempo del equipo pasado a euros (horas × coste por hora). Sirve para comparar problemas, pero no es dinero que entre en caja: por eso se muestra aparte y no se suma al ahorro en dinero.",
+    "Horizonte": "Cuándo se aborda cada problema: mes 1 (urgencias y una victoria rápida), meses 2-3 (bases y lo que más retorno da) o después."
   }
 }

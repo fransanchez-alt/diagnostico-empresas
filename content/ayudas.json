@@ -20,7 +20,7 @@
   "analitica": {
     "que": "Escribir cada problema como una tarjeta y calcular cuánto cuesta al año.",
     "porque": "Lo que no se cuantifica no se puede priorizar. Y no siempre lo que más molesta es lo que más cuesta.",
-    "como": "Para cada problema: título con palabras de la empresa, área, cuánto le molesta (1-5) y una o varias fórmulas. Marca el origen de cada número: [E] lo dice la empresa, [C] lo compruebas tú, [S] es un supuesto. La herramienta hace la cuenta y la enseña.",
+    "como": "Para cada problema: título con palabras de la empresa, área, cuánto le molesta (1-5) y una o varias fórmulas. Marca el origen de cada número: [E] lo dice la empresa, [C] lo compruebas tú, [S] es un supuesto. La herramienta hace la cuenta y la enseña. Las horas se pasan a año con las semanas que de verdad se trabajan (45 por defecto). Si el problema son horas de la plantilla, marca que lo que se gana es «tiempo del equipo», no dinero.",
     "ejemplo": "Hidrotex: «Roturas de stock de splits», 30.000 € de ventas perdidas [E]; el coste real es el margen, que aún no sabemos."
   },
   "diagnostico": {
@@ -32,13 +32,13 @@
   "tratamiento": {
     "que": "Decidir qué se hace primero, cómo se hace y preparar el arnés para el agente.",
     "porque": "La herramienta propone un orden con una regla visible: primero estabilizar, después las bases y luego lo que más devuelve. La última palabra es tuya.",
-    "como": "Revisa el orden propuesto y su explicación. Si mueves algo, escribe el motivo. Para cada problema que se aborde, elige el destino y el patrón, y descarga el kit.",
+    "como": "Revisa el orden propuesto y su explicación. Si mueves algo, escribe el motivo. Para cada problema que se aborde, elige el destino y el patrón, y descarga el kit. Debajo verás la hoja de ruta en tres horizontes y, en cada ficha, una ayuda para elegir el destino y el retorno esperado (qué parte resuelve la solución, inversión y en cuántos meses se recupera).",
     "ejemplo": "Hidrotex: 1) normas mínimas para el móvil de la tienda, 2) revisor de datos, 3) previsor de compras."
   },
   "informe": {
     "que": "El diagnóstico en una página para enseñarlo en el momento y el informe completo para después.",
     "porque": "La empresa tiene que entender en un minuto dónde está, a dónde va y qué haría primero.",
-    "como": "Revisa la vista previa y usa «Imprimir / Guardar como PDF». Exporta el caso para guardarlo o pasarlo a otro dispositivo.",
+    "como": "Revisa la vista previa y usa «Imprimir / Guardar como PDF». Exporta el caso para guardarlo o pasarlo a otro dispositivo. Con «Descargar Excel de cálculos» el empresario puede cambiar los datos y ver cómo cambia el resultado.",
     "ejemplo": "La página única de Hidrotex: gráfico, tres problemas con su coste y el orden propuesto."
   }
 }
