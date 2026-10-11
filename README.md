@@ -8,12 +8,12 @@ Herramienta web para diagnosticar una empresa como en una consulta médica: qué
 
 ## Cómo se usa
 1. Crea un caso (o abre el ejemplo de Hidrotex).
-2. **Motivo:** elige el motivo de consulta, descarga el cuestionario para el empresario y luego importa sus respuestas (o rellénalas tú en la visita).
+2. **Motivo:** elige el motivo de consulta, descarga el cuestionario para el empresario y el del equipo (anónimo) e importa sus respuestas (o rellénalas tú en la visita).
 3. **Exploración:** sitúa cada área en su nivel, con evidencia.
-4. **Analítica:** escribe los problemas y calcula su coste con la operación a la vista.
+4. **Analítica:** escribe los problemas y calcula su coste con la operación a la vista. Las horas se cuentan con 45 semanas trabajadas al año y se separa el tiempo del equipo del dinero.
 5. **Diagnóstico:** acordad el punto B; revisa el gráfico, la matriz dolor × euros, los cruces y el DAFO.
-6. **Tratamiento:** revisa el orden propuesto, elige destino y patrón y descarga el kit.
-7. **Informe:** imprime o guarda en PDF.
+6. **Tratamiento:** revisa el orden y la hoja de ruta en tres horizontes; en cada ficha, elige destino (con ayuda), calcula el retorno y descarga el kit.
+7. **Informe:** imprime o guarda en PDF, y descarga el Excel de cálculos para que el empresario pruebe con sus datos.
 
 ## Para ponerla en marcha
 Necesita servirse desde una dirección web (no vale abrir `index.html` con doble clic):

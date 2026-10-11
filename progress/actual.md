@@ -1,15 +1,21 @@
-# Estado actual · v0.1.0 (11/10/2026)
+# Estado actual · v0.2.0 (11/10/2026)
 
 ## Hecho
-- Contenido del método en JSON: 8 áreas, 6 motivos, 6 fórmulas, 6 patrones, ayudas y glosario.
-- Lógica con 18 tests: fórmulas F1-F6, rangos, matriz dolor × euros, orden en tres escalones con ajuste manual, DAFO, privacidad, kit y .zip.
-- Recorrido completo en 6 pasos, cuestionario del empresario (HTML independiente) e importación de respuestas.
-- Kit del arnés en .zip (completo y ligero), informe imprimible, exportar e importar casos, funcionamiento sin conexión.
-- Caso Hidrotex reproduce el Anexo A del método.
+- v0.1: método en JSON (8 áreas, 6 motivos, 6 fórmulas, 6 patrones), recorrido en 6 pasos, cuestionario del empresario, kit del arnés en .zip, informe imprimible, trabajo sin conexión. Hidrotex reproduce el Anexo A.
+- v0.2 (29 tests):
+  - Cuestionario anónimo del equipo (E1-E3): se importa, aparece junto al cruce «lo dicho frente al dato» y crea tarjetas.
+  - Semanas trabajadas al año: 45 por defecto, ajustable por caso.
+  - Tiempo del equipo frente a dinero: titular con dos cifras separadas, hipótesis fuera del titular, ventas sin margen avisadas como cota alta.
+  - Esfuerzo, % que resuelve, inversión y coste al mes → ahorro y meses para recuperar la inversión.
+  - Regla de proceso fijo para P4 y P5, y ayuda de tres preguntas para elegir el destino.
+  - Hoja de ruta en tres horizontes, ajustable.
+  - Excel de cálculos con fórmulas vivas (js/xlsx.js, sin dependencias).
+  - Leyenda [E]/[C]/[S] al pie del informe.
 
 ## Siguiente
+- Diseño visual (pendiente a propósito).
 - Probarla con un caso real y revisar los descriptores de las 8 áreas.
-- Preguntas abiertas: R14 de `docs/metodo.md`.
+- Cifrado local con contraseña (v0.3).
 
 ## Ideas para después
 - Revisión (RF-23): repetir la exploración y comparar A inicial, A actual y B.

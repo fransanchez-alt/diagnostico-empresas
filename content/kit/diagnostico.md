@@ -16,6 +16,12 @@ Matriz dolor × euros: {{CUADRANTE}}
 
 Lugar en el orden de prioridad: {{POSICION}}
 
+Hoja de ruta: {{HORIZONTE}}
+
+Retorno esperado de la solución: {{RETORNO}}
+
+Esfuerzo estimado: {{ESFUERZO}}
+
 ## Cruces confirmados
 {{CRUCES}}
 

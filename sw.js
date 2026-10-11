@@ -1,5 +1,5 @@
 // Service worker: guarda la herramienta para que funcione sin conexión.
-const VERSION = 'dx-v0.1.0';
+const VERSION = 'dx-v0.2.0';
 const ARCHIVOS = [
   "./",
   "index.html",
@@ -42,6 +42,7 @@ const ARCHIVOS = [
   "js/radar.js",
   "js/store.js",
   "js/zip.js",
+  "js/xlsx.js",
 ];
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(VERSION).then((c) => Promise.all(ARCHIVOS.map((f) => c.add(f).catch(() => null)))).then(() => self.skipWaiting()));
